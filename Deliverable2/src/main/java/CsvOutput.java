@@ -1,4 +1,4 @@
-package logic;
+package main.java;
 
 import java.io.FileWriter;
 import java.io.IOException;

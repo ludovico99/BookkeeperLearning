@@ -1,4 +1,4 @@
-package logic;
+package main.java;
 
 import org.eclipse.jgit.revwalk.RevCommit;
 

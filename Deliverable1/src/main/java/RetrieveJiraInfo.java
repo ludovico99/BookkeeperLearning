@@ -1,4 +1,4 @@
-package logic;
+package main.java;
 
 import org.json.JSONArray;
 import org.json.JSONException;

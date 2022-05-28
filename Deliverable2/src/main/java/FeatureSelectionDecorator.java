@@ -1,6 +1,5 @@
-package logic;
+package main.java;
 
-import org.jfree.ui.RefineryUtilities;
 import weka.attributeSelection.CfsSubsetEval;
 import weka.attributeSelection.GreedyStepwise;
 import weka.classifiers.AbstractClassifier;

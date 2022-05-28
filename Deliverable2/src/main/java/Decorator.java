@@ -1,9 +1,4 @@
-package logic;
-
-import weka.classifiers.AbstractClassifier;
-import weka.classifiers.Evaluation;
-import weka.core.Instances;
-import weka.core.converters.ConverterUtils.DataSource;
+package main.java;
 
 public abstract class Decorator extends Validation {
 

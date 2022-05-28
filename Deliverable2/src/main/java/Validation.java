@@ -1,4 +1,4 @@
-package logic;
+package main.java;
 
 import org.jfree.chart.ChartUtilities;
 import org.jfree.ui.RefineryUtilities;

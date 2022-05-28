@@ -1,4 +1,4 @@
-package logic;
+package main.java;
 
 public enum BalancingEnum {
     SMOTE_SAMPLING,

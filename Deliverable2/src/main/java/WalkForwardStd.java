@@ -1,6 +1,5 @@
-package logic;
+package main.java;
 
-import org.jfree.ui.RefineryUtilities;
 import weka.classifiers.AbstractClassifier;
 import weka.classifiers.Evaluation;
 import weka.core.Instances;

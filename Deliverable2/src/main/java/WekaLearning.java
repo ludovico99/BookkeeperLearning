@@ -1,8 +1,7 @@
-package logic;
+package main.java;
 
 import weka.core.converters.ConverterUtils.DataSource;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 

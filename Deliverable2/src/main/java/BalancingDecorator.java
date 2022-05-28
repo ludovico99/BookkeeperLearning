@@ -1,4 +1,4 @@
-package logic;
+package main.java;
 
 import weka.classifiers.AbstractClassifier;
 import weka.classifiers.Evaluation;
