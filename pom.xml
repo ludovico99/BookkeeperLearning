@@ -7,7 +7,11 @@
     <groupId>org.example</groupId>
     <artifactId>BookkeeperLearning</artifactId>
     <version>0.1-SNAPSHOT</version>
-
+	
+	<modules>
+		<module>Deliverable1</module>
+		<module>Deliverable2</module>
+	</modules>
 
     <properties>
 		<sonar.organization>ludovico99</sonar.organization>
