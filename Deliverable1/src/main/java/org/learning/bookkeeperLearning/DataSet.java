@@ -1,4 +1,4 @@
-package main.java;
+package org.learning.bookkeeperLearning;
 
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.Repository;

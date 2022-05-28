@@ -1,4 +1,4 @@
-package main.java;
+package org.learning.bookkeeperLearning;
 
 import weka.classifiers.AbstractClassifier;
 import weka.classifiers.Evaluation;

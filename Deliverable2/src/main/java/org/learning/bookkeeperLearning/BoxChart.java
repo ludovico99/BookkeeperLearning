@@ -1,4 +1,4 @@
-package main.java;
+package org.learning.bookkeeperLearning;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;

@@ -1,4 +1,4 @@
-package main.java;
+package org.learning.bookkeeperLearning;
 
 import org.jfree.chart.ChartUtilities;
 import org.jfree.ui.RefineryUtilities;

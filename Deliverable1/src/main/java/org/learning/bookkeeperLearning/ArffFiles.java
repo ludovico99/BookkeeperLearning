@@ -1,4 +1,4 @@
-package main.java;
+package org.learning.bookkeeperLearning;
 
 import java.io.FileWriter;
 import java.io.IOException;

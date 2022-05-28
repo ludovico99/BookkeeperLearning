@@ -1,4 +1,4 @@
-package main.java;
+package org.learning.bookkeeperLearning;
 
 public enum BalancingEnum {
     SMOTE_SAMPLING,
