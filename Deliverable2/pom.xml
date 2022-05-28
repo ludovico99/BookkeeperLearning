@@ -4,9 +4,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.sonarqube</groupId>
-    <artifactId>sonarscanner-maven-aggregate</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>org.learning</groupId>
+    <artifactId>BookkeeperLearning</artifactId>
+    <version>0.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>deliverable2</artifactId>
