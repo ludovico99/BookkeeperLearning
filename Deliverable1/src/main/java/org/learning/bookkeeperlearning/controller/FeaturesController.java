@@ -55,19 +55,26 @@ public class FeaturesController {
                                 double age, EditList editList,ReleaseEntity commitVersion,
                                 JavaFileEntity javaFile,String fileName, int dfsSize) {
 
-        int[] newChanges = new int[] {0,0,0};
+        int[] newChanges = new int[] {0,0};
 
         for (Edit edit : editList) {
-            if (edit.getType().compareTo(Edit.Type.INSERT) == 0) {
-                newChanges[0] += edit.getLengthB();
-            }
+            switch (edit.getType()) {
+                case INSERT:
+                    newChanges[0] += edit.getLengthB();
+                    break;
+                case DELETE:
+                    newChanges[1] += edit.getLengthA();
+                    break;
 
-            if (edit.getType().compareTo(Edit.Type.DELETE) == 0) {
-                newChanges[1] += edit.getLengthA();
-            }
-
-            if (edit.getType().compareTo(Edit.Type.REPLACE) == 0) {
-                newChanges[2] += edit.getLengthB() - edit.getLengthA();
+                case REPLACE:
+                    if (edit.getLengthA() < edit.getLengthB()) {
+                        newChanges[0] += edit.getLengthB() - edit.getLengthA();
+                    } else if (edit.getLengthA() > edit.getLengthB()) {
+                        newChanges[1] += edit.getLengthA() - edit.getLengthB();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -89,17 +96,16 @@ public class FeaturesController {
                             String fileName, ReleaseEntity commitVersion, int dfsSize, int[] newChanges) {
 
         int newInsert = newChanges[0];
-        int newReplace = newChanges[2];
         int newDelete = newChanges[1];
 
-        int locAdded = newInsert;
-        if (newReplace > 0) locAdded = locAdded + newReplace;
+
         if (javaFile == null) {
-            int value = newInsert - newDelete + newReplace;
-            int locTouched = newInsert + Math.abs(newReplace) + newDelete;
+            int value = newInsert - newDelete ;
+            int locAdded = newInsert;
+            int locTouched = newInsert + newDelete;
             List<String> authors = new ArrayList<>();
             authors.add(rev.getCommitterIdent().getName());
-            double weightedAge = age * (newInsert + Math.abs(newReplace) + newDelete);
+            double weightedAge = age * (newInsert  + newDelete);
             int[] aux = new int[]{value, locTouched, locAdded, dfsSize};
 
             JavaFileEntity newClass = new JavaFileEntity(fileName, aux, commitVersion.getVersion(),
@@ -112,21 +118,19 @@ public class FeaturesController {
 
         int newInsert = newChanges[0];
         int newDelete = newChanges[1];
-        int newReplace = newChanges[2];
 
         if (javaFile != null) {
             /*Una revisione di una classe è il numero di volte in cui la classe è stata toccata
              da un commit diverso in quella versione  */
             int newNR = javaFile.getNr() + 1;
-            int size = javaFile.getSize() + newInsert - newDelete + newReplace;
+            int size = javaFile.getSize() + newInsert - newDelete ;
             int locTouched = javaFile.getLocTouched()
-                    + newDelete + newInsert + Math.abs(newReplace);
+                    + newDelete + newInsert;
             int locAdded = javaFile.getLocAdded() + newInsert;
-            if (newReplace > 0) locAdded = locAdded + newReplace;
             int maxLocAdded = Math.max(javaFile.getMaxLocAdded(), locAdded);
             double avgLocAdded = locAdded / (double) newNR;
-            int churn = javaFile.getChurn() + newInsert - newDelete + newReplace;
-            int maxChurn = Math.max(javaFile.getMaxChurn(), newInsert - newDelete + newReplace);
+            int churn = javaFile.getChurn() + newInsert - newDelete;
+            int maxChurn = Math.max(javaFile.getMaxChurn(), newInsert - newDelete);
             double avgChurn = churn / (double) newNR;
             int chgSetSize = javaFile.getChgSetSize() + dfsSize - 1;
             int maxChgSet = Math.max(javaFile.getMaxChgSetSize(), dfsSize - 1);

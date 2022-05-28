@@ -1,6 +1,5 @@
 package org.learning.bookkeeperlearning.controller;
 
-import org.learning.bookkeeperlearning.entity.CommitEntity;
 import org.learning.bookkeeperlearning.entity.DataSetEntity;
 import org.learning.bookkeeperlearning.entity.JiraTicketsEntity;
 import org.learning.bookkeeperlearning.entity.ReleaseEntity;

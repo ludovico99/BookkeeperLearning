@@ -2,7 +2,6 @@ package org.learning.bookkeeperlearning.controller;
 
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.Repository;
-import org.learning.bookkeeperlearning.controller.GitController;
 import org.learning.bookkeeperlearning.entity.*;
 
 import java.io.IOException;

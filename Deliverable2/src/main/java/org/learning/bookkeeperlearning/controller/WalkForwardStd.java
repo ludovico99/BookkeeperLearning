@@ -1,6 +1,5 @@
 package org.learning.bookkeeperlearning.controller;
 
-import org.learning.bookkeeperlearning.controller.Validation;
 import org.learning.bookkeeperlearning.entity.LearningModelEntity;
 import weka.classifiers.AbstractClassifier;
 import weka.classifiers.Evaluation;
