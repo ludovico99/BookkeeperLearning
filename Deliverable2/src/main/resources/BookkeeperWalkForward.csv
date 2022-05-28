@@ -1,0 +1,19 @@
+Classifier, DataSet Name, #Training release, %Training, #Defective Training, #Defective Testing, Balancing, Feature Selection, Sensitivity, TP, FP, TN, FN, Recall, Precision, Accuracy, ROC AUC, Kappa
+NaiveBayes, Bugginess classifier, 1, 7.5, 96, 101, , false, false, 53.0, 15.0, 115.0, 48.0, 0.52, 0.78, 72.73, 0.71, 0.42
+RandomForest, Bugginess classifier, 1, 7.5, 96, 101, , false, false, 93.0, 60.0, 70.0, 8.0, 0.92, 0.61, 70.56, 0.78, 0.43
+IBk, Bugginess classifier, 1, 7.5, 96, 101, , false, false, 83.0, 38.0, 92.0, 18.0, 0.82, 0.69, 75.76, 0.76, 0.52
+NaiveBayes, Bugginess classifier, 2, 16.9, 197, 59, , false, false, 32.0, 31.0, 238.0, 27.0, 0.54, 0.51, 82.32, 0.8, 0.42
+RandomForest, Bugginess classifier, 2, 16.9, 197, 59, , false, false, 52.0, 107.0, 162.0, 7.0, 0.88, 0.33, 65.24, 0.85, 0.29
+IBk, Bugginess classifier, 2, 16.9, 197, 59, , false, false, 45.0, 99.0, 170.0, 14.0, 0.76, 0.31, 65.55, 0.7, 0.25
+NaiveBayes, Bugginess classifier, 3, 30.2, 249, 58, , false, false, 13.0, 25.0, 309.0, 45.0, 0.22, 0.34, 82.14, 0.8, 0.17
+RandomForest, Bugginess classifier, 3, 30.2, 249, 58, , false, false, 21.0, 29.0, 305.0, 37.0, 0.36, 0.42, 83.16, 0.79, 0.29
+IBk, Bugginess classifier, 3, 30.2, 249, 58, , false, false, 23.0, 37.0, 297.0, 35.0, 0.4, 0.38, 81.63, 0.65, 0.28
+NaiveBayes, Bugginess classifier, 4, 46.2, 307, 50, , false, false, 17.0, 12.0, 352.0, 33.0, 0.34, 0.59, 89.13, 0.85, 0.37
+RandomForest, Bugginess classifier, 4, 46.2, 307, 50, , false, false, 30.0, 18.0, 346.0, 20.0, 0.6, 0.63, 90.82, 0.88, 0.56
+IBk, Bugginess classifier, 4, 46.2, 307, 50, , false, false, 26.0, 34.0, 330.0, 24.0, 0.52, 0.43, 85.99, 0.72, 0.39
+NaiveBayes, Bugginess classifier, 5, 63.0, 357, 62, , false, false, 15.0, 2.0, 384.0, 47.0, 0.24, 0.88, 89.06, 0.87, 0.34
+RandomForest, Bugginess classifier, 5, 63.0, 357, 62, , false, false, 33.0, 20.0, 366.0, 29.0, 0.53, 0.62, 89.06, 0.92, 0.51
+IBk, Bugginess classifier, 5, 63.0, 357, 62, , false, false, 28.0, 29.0, 357.0, 34.0, 0.45, 0.49, 85.94, 0.71, 0.39
+NaiveBayes, Bugginess classifier, 6, 81.2, 419, 34, , false, false, 7.0, 11.0, 418.0, 27.0, 0.21, 0.39, 91.79, 0.87, 0.23
+RandomForest, Bugginess classifier, 6, 81.2, 419, 34, , false, false, 13.0, 30.0, 399.0, 21.0, 0.38, 0.3, 88.98, 0.89, 0.28
+IBk, Bugginess classifier, 6, 81.2, 419, 34, , false, false, 16.0, 45.0, 384.0, 18.0, 0.47, 0.26, 86.39, 0.7, 0.27
