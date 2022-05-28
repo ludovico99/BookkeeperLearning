@@ -75,23 +75,22 @@ public class ArffFiles {
             }
             writer.append("}\n");
 
-            writer.append("""
-                    @attribute size numeric
-                    @attribute LOC_Touched numeric
-                    @attribute NR numeric
-                    @attribute LOC_added numeric
-                    @attribute MAX_LOC_added numeric
-                    @attribute AVG_LOC_added numeric
-                    @attribute Churn numeric
-                    @attribute MAX_churn numeric
-                    @attribute AVG_churn_churn numeric
-                    @attribute ChgSetSize numeric 
-                    @attribute MAX_ChgSet numeric
-                    @attribute AVG_ChgSet numeric
-                    @attribute AGE numeric
-                    @attribute weightedAge numeric
-                    @attribute nAuthors numeric
-                    @attribute bugginess {no,yes}""");
+            writer.append("@attribute size numeric\n" +
+                    "@attribute LOC_Touched numeric\n" +
+                    "@attribute NR numeric\n"+
+                    "@attribute LOC_added numeric\n"+
+                    "@attribute MAX_LOC_added numeric\n"+
+                    "@attribute AVG_LOC_added numeric\n"+
+                    "@attribute Churn numeric\n"+
+                    "@attribute MAX_churn numeric\n"+
+                    "@attribute AVG_churn_churn numeric\n"+
+                    "@attribute ChgSetSize numeric\n"+
+                    "@attribute MAX_ChgSet numeric\n"+
+                    "@attribute AVG_ChgSet numeric\n"+
+                    "@attribute AGE numeric\n"+
+                    "@attribute weightedAge numeric\n"+
+                    "@attribute nAuthors numeric\n" +
+                    "@attribute bugginess {no,yes}");
 
             writer.append("\n");
             writer.append("@data\n");

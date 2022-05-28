@@ -35,7 +35,7 @@ public class RetrieveGitInfo {
 
     }
 
-    private static final String LOCAL_GIT_REPO_PREFIX = "C:\\Users\\ludov\\Desktop\\Anno 2021-2022\\ISW2\\Progetti\\Deliverable1\\";
+    private static final String LOCAL_GIT_REPO_PREFIX = ".\\";
     public static Git getGit() {
         return git;
     }
