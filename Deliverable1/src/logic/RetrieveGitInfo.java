@@ -43,21 +43,19 @@ public class RetrieveGitInfo {
     public static void initializeGit() {
         if (git == null) {
             try {
-                /*git = Git.cloneRepository()
+                git = Git.cloneRepository()
                         .setURI(REPOSITORY)
                         .setDirectory(new File(LOCAL_GIT_REPO_PREFIX + PROJECT_NAME))
-                        .call();*/
-                FileRepositoryBuilder repoBuilder = new FileRepositoryBuilder();
-                Repository repo = repoBuilder.setGitDir(new File(LOCAL_GIT_REPO_PREFIX + PROJECT_NAME)).setMustExist(true).build();
-                git = new Git(repo);
+                        .call();
+
             } catch (Exception e) {
                 e.printStackTrace();
-                /*try {
+                try {
                     git = Git.open(new File(LOCAL_GIT_REPO_PREFIX + PROJECT_NAME));
                 } catch (Exception ev) {
                     ev.printStackTrace();
                     git.close();
-                }*/
+                }
             }
         }
     }
