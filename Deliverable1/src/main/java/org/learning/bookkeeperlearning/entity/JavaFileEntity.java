@@ -196,7 +196,7 @@ public class JavaFileEntity {
     }
 
     public void setMaxLocAdded(int newLocAdded) {
-        this.maxLocAdded = Math.max(this.locAdded, newLocAdded);;
+        this.maxLocAdded = Math.max(this.locAdded, newLocAdded);
     }
 
     public void addNr(int nr) {

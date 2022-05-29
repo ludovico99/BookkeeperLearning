@@ -88,45 +88,82 @@ public abstract class Validation {
         this.trainingSet = trainingSet;
     }
 
-    public abstract List<LearningModelEntity> validation() throws Exception;
+    public List<LearningModelEntity> validation() throws Exception {
+        createInstances();
 
-    public void createInstances() throws Exception {
+        List<LearningModelEntity> results = initLearningModelEntities();
 
-        iterations = trainingSet.getDataSet(0).numClasses();
-        int numAttr = 1;
-        Instances dataSet1 = trainingSet.getDataSet(0);
-        Instances dataSet2 = testingSet.getDataSet(0);
+        for (int i = 0; i< trainings.size(); i++) {
+            for (int j = 0; j < classifiers.size(); j++) {
 
-        Instances training;
-        Instances testing;
+                LearningModelEntity learningModelEntity = results.get(j);
 
-        for (double i = 1.0; i < iterations; i++) {
-            training = new Instances(dataSet1, 0, 0);
-            testing = new Instances(dataSet2, 0, 0);
-            for (Instance in : dataSet1) {
-                if (in.classValue() < i) training.add(in);
+                Evaluation eval = buildModel(classifiers.get(j),trainings.get(i),testings.get(i),learningModelEntity);
+
+                double recall = Math.round(eval.recall(1) * 100.0) / 100.0;
+                double precision = Math.round(eval.precision(1) * 100.0) / 100.0;
+                double accuracy = Math.round(eval.pctCorrect() * 100.0) / 100.0;
+                double auc = Math.round(eval.areaUnderROC(1) * 100.0) / 100.0;
+                double kappa = Math.round(eval.kappa() * 100.0) / 100.0;
+
+
+                learningModelEntity.addTp(eval.numTruePositives(1));
+                learningModelEntity.addTn(eval.numTrueNegatives(1));
+                learningModelEntity.addFp(eval.numFalsePositives(1));
+                learningModelEntity.addFn(eval.numFalseNegatives(1));
+
+                learningModelEntity.addAccuracy(accuracy);
+                learningModelEntity.addRecall(recall);
+                learningModelEntity.addPrecision(precision);
+                learningModelEntity.addKappa(kappa);
+                learningModelEntity.addRocAuc(auc);
             }
-            for (Instance in : dataSet2) {
-                if (in.classValue() == i) testing.add(in);
-            }
-            if (training.isEmpty() || testing.isEmpty()) continue;
-
-            numAttr = training.numAttributes();
-
-            training.setClassIndex(numAttr - 1);
-            testing.setClassIndex(numAttr - 1);
-
-            training.deleteAttributeAt(0);
-            training.deleteAttributeAt(0);
-
-            testing.deleteAttributeAt(0);
-            testing.deleteAttributeAt(0);
-
-            addTesting(testing);
-            addTraining(training);
-
-
         }
+        return results;
+    }
+
+    public void createInstances() {
+
+        try {
+
+
+            iterations = trainingSet.getDataSet(0).numClasses();
+            int numAttr = 1;
+            Instances dataSet1 = trainingSet.getDataSet(0);
+            Instances dataSet2 = testingSet.getDataSet(0);
+
+            Instances training;
+            Instances testing;
+
+            for (double i = 1.0; i < iterations; i++) {
+                training = new Instances(dataSet1, 0, 0);
+                testing = new Instances(dataSet2, 0, 0);
+                for (Instance in : dataSet1) {
+                    if (in.classValue() < i) training.add(in);
+                }
+                for (Instance in : dataSet2) {
+                    if (in.classValue() == i) testing.add(in);
+                }
+                if (training.isEmpty() || testing.isEmpty()) continue;
+
+                numAttr = training.numAttributes();
+
+                training.setClassIndex(numAttr - 1);
+                testing.setClassIndex(numAttr - 1);
+
+                training.deleteAttributeAt(0);
+                training.deleteAttributeAt(0);
+
+                testing.deleteAttributeAt(0);
+                testing.deleteAttributeAt(0);
+
+                addTesting(testing);
+                addTraining(training);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -167,10 +204,14 @@ public abstract class Validation {
         classifiers.add(classifier);
     }
 
-    public void saveChart(BoxChart chart, String str) throws IOException {
-        File boxChart = new File( FILE_NAME + "_BoxChart_" + str + ".jpeg" );
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        ChartUtilities.saveChartAsJPEG(boxChart ,chart.getChart(), dim.width ,dim.height);
+    public void saveChart(BoxChart chart, String str)   {
+        try {
+            File boxChart = new File(FILE_NAME + "_BoxChart_" + str + ".jpeg");
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            ChartUtilities.saveChartAsJPEG(boxChart, chart.getChart(), dim.width, dim.height);
+        } catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     public abstract Evaluation buildModel(AbstractClassifier classifier, Instances trainings, Instances testings,LearningModelEntity modelEntity) throws Exception;

@@ -20,9 +20,6 @@ public class JiraController {
     private static final String PROJECT_NAME = "BOOKKEEPER";
     private static final Logger logger = Logger.getLogger("Jira tickets info:");
 
-    public JiraController(){
-
-    }
 
     public  List<JiraTicketsEntity> getVersionsOfBugTickets(List<ReleaseEntity> releaseEntityList){
 

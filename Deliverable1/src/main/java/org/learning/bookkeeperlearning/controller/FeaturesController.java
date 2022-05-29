@@ -30,25 +30,25 @@ public class FeaturesController {
          * All'inizio della release successiva ci sono tutte le classi della release precedente.
          *
          * */
-
-        JavaFileEntity newClass;
-        List<JavaFileEntity> prevVersionJavaFiles = prevVersion.getJavaFiles();
-        SimpleDateFormat sdf = new SimpleDateFormat(DATEFORMAT);
-        try {
-            for (JavaFileEntity k : prevVersionJavaFiles) {
-                long prevReleaseTime = sdf.parse(prevVersion.getDate()).getTime();
-                double newAge = k.getAge() + ((dateRelease.getTime() -
-                        prevReleaseTime) / (double) 604800000);
-                //<-- Assumo che sia presente anche per tutta la release successiva, se non è cosi viene eliminta
-                //da una DELETE nella release
-                newClass = new JavaFileEntity(k.getClassName(), commitVersion.getVersion(), k.getSize(),
-                        newAge, k.getAuthors());
-                commitVersion.addJavaFile(newClass);
+        if (!commitVersion.getVersion().equals(prevVersion.getVersion())) {
+            JavaFileEntity newClass;
+            List<JavaFileEntity> prevVersionJavaFiles = prevVersion.getJavaFiles();
+            SimpleDateFormat sdf = new SimpleDateFormat(DATEFORMAT);
+            try {
+                for (JavaFileEntity k : prevVersionJavaFiles) {
+                    long prevReleaseTime = sdf.parse(prevVersion.getDate()).getTime();
+                    double newAge = k.getAge() + ((dateRelease.getTime() -
+                            prevReleaseTime) / (double) 604800000);
+                    //<-- Assumo che sia presente anche per tutta la release successiva, se non è cosi viene eliminta
+                    //da una DELETE nella release
+                    newClass = new JavaFileEntity(k.getClassName(), commitVersion.getVersion(), k.getSize(),
+                            newAge, k.getAuthors());
+                    commitVersion.addJavaFile(newClass);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
     }
 
     private int[] analyzeEditList(EditList editList) {
@@ -157,9 +157,7 @@ public class FeaturesController {
                     if (dfs == null || commitVersion == null) continue;
                     Date dateRelease = new Date(sdf.parse(commitVersion.getDate()).getTime());
 
-                    if (!commitVersion.getVersion().equals(prevVersion.getVersion())) {
-                        releaseInitialization (commitVersion,prevVersion, dateRelease);
-                    }
+                    releaseInitialization (commitVersion,prevVersion, dateRelease);
 
                     double age = (dateRelease.getTime() - date.getTime()) / (double)604800000;
 
