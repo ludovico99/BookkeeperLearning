@@ -141,64 +141,70 @@ public class JavaFileEntity {
         return className;
     }
 
-    public void setAge(double age) {
-        this.age = age;
+    public void addAge(double age) {
+        this.age += age;
     }
 
-    public void setAuthors(List<String> authors) {
-        this.authors = authors;
+    public void addAuthors(String author) {
+        if (!authors.contains(author)) this.authors.add(author);
     }
 
-    public void setAvgChgSetSize(double avgChgSetSize) {
-        this.avgChgSetSize = avgChgSetSize;
+    public void setAvgChgSetSize() {
+            this.avgChgSetSize = this.chgSetSize / (double) this.nr;
     }
 
-    public void setAvgChurn(double avgChurn) {
-        this.avgChurn = avgChurn;
+    public void setAvgChurn() {
+        this.avgChurn = this.churn / (double) this.nr;
     }
 
-    public void setAvgLocAdded(double avgLocAdded) {
-        this.avgLocAdded = avgLocAdded;
+    public void setAvgLocAdded() {
+        this.avgLocAdded = this.locAdded / (double) this.nr;
     }
 
     public void setBugginess(String bugginess) {
         this.bugginess = bugginess;
     }
 
-    public void setChgSetSize(int chgSetSize) {
-        this.chgSetSize = chgSetSize;
+    public void addChgSetSize(int chgSetSize) {
+        this.chgSetSize += chgSetSize;
+        this.setMaxChgSetSize(chgSetSize);
+        this.setAvgChgSetSize();
     }
 
-    public void setChurn(int churn) {
-        this.churn = churn;
+    public void addChurn(int churn) {
+        this.churn += churn;
+        this.setMaxChurn(churn);
+        this.setAvgChurn();
     }
 
-    public void setLocAdded(int locAdded) {
-        this.locAdded = locAdded;
+    public void addLocAdded(int locAdded) {
+        this.locAdded += locAdded;
+        this.setMaxLocAdded(locAdded);
+        this.setAvgLocAdded();
     }
 
-    public void setLocTouched(int locTouched) {
-        this.locTouched = locTouched;
+    public void addLocTouched(int locTouched) {
+        this.locTouched += locTouched;
     }
 
     public void setMaxChgSetSize(int maxChgSetSize) {
-        this.maxChgSetSize = maxChgSetSize;
+        this.maxChgSetSize = Math.max(this.getMaxChgSetSize(), maxChgSetSize);
     }
 
-    public void setMaxChurn(int maxChurn) {
-        this.maxChurn = maxChurn;
+    public void setMaxChurn(int churn) {
+        this.maxChurn = Math.max(this.getMaxChurn(), churn);
     }
 
-    public void setMaxLocAdded(int maxLocAdded) {
-        this.maxLocAdded = maxLocAdded;
+    public void setMaxLocAdded(int newLocAdded) {
+        this.maxLocAdded = Math.max(this.locAdded, newLocAdded);;
     }
 
-    public void setNr(int nr) {
-        this.nr = nr;
+    public void addNr(int nr) {
+        this.nr += nr;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void addSize(int size) {
+        this.size += size;
     }
 
     public void setWeightedAge(double weightedAge) {

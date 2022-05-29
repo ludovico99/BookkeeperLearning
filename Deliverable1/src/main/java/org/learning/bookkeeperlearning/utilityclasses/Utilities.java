@@ -9,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utilities {
 
@@ -51,6 +53,12 @@ public class Utilities {
         return aux1;
     }
 
+    public static boolean isTicketExactlyContained(String source, String ticketId){
+        String pattern = "\\b" + ticketId + "\\b";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(source);
+        return m.find();
+    }
 
 
 }
