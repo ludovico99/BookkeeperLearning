@@ -1,27 +1,29 @@
 package org.learning.bookkeeperlearning.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JiraTicketsEntity {
 
     private String key;
     private List<ReleaseEntity> avsJira;
-    private List<ReleaseEntity> avs;
     private List<ReleaseEntity> fvsJira;
+
+    private ReleaseEntity iv;
     private ReleaseEntity ov;
     private ReleaseEntity fv;
-    private ReleaseEntity iv;
+    private List<ReleaseEntity> computedAvs = new ArrayList<>();
 
 
-    private List<Double> incrementalP;
-    private List<Double> incrementalFvIv;
+    private final List<Double> incrementalP = new ArrayList<>();
+    private final List<Double> incrementalFvIv = new ArrayList<>();
 
-    public List<ReleaseEntity> getAvs() {
-        return avs;
+    public List<ReleaseEntity> getComputedAvs() {
+        return computedAvs;
     }
 
-    public void setAvs(List<ReleaseEntity> avs) {
-        this.avs = avs;
+    public void setComputedAvs(List<ReleaseEntity> computedAvs) {
+        this.computedAvs = computedAvs;
     }
 
     public void setIv(ReleaseEntity iv) {
@@ -32,12 +34,12 @@ public class JiraTicketsEntity {
         return iv;
     }
 
-    public void setIncrementalFvIv(List<Double> incrementalFvIv) {
-        this.incrementalFvIv = incrementalFvIv;
+    public void addIncrementalMeanFvIV(Double incrementalFvIv) {
+        this.incrementalFvIv.add(incrementalFvIv);
     }
 
-    public void setIncrementalP(List<Double> incrementalP) {
-        this.incrementalP = incrementalP;
+    public void addIncrementalP(Double incrementalP) {
+        this.incrementalP.add(incrementalP);
     }
 
     public List<Double> getIncrementalFvIv() {

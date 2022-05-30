@@ -163,7 +163,7 @@ public class FeaturesController {
 
                     for (DiffEntry diff : dfs) {
 
-                        if (Boolean.FALSE.equals(isAJavaFileExcludeTests(diff))) continue;
+                        if (Boolean.FALSE.equals(Utilities.isAJavaFileExcludeTests(diff))) continue;
 
                         DiffFormatter df = new DiffFormatter(DisabledOutputStream.INSTANCE);
                         df.setRepository(repo);
@@ -189,13 +189,7 @@ public class FeaturesController {
         }
     }
 
-    private Boolean isAJavaFileExcludeTests (DiffEntry diff) {
-        String javaSuffix = ".java";
-        String[] newName = diff.getNewPath().split("/");
-        if (newName[newName.length - 1].contains("test") || newName[newName.length - 1].contains("Test")) return false;
 
-        return diff.getOldPath().endsWith(javaSuffix) || diff.getNewPath().endsWith(javaSuffix);
-    }
 
     private JavaFileEntity isJavaFilePresentInThatVersion(ReleaseEntity commitVersion, String fileName){
         // Ritorna null se quella classe non è ancora presente tra le classi di quella release

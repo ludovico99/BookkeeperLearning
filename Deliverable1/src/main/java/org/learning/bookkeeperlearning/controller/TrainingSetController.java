@@ -35,7 +35,7 @@ public class TrainingSetController extends DataSetController {
                     fv = releases.indexOf(ticket.getFv());
                     ov = releases.indexOf(ticket.getOv());
                     if (fv==0) {
-                        ticket.setAvs(new ArrayList<>());
+                        ticket.setComputedAvs(new ArrayList<>());
                         continue;
                     }
                     if (ticket.getAvsJira().isEmpty()) {
@@ -70,7 +70,7 @@ public class TrainingSetController extends DataSetController {
                     if (iv < 0) iv = 0; // ho sottratto mean fv-iv ed è maggiore di fv
                     computedAvs= new ArrayList<>(releases.subList(iv, fv));
                     ticket.setIv(releases.get(iv));
-                    ticket.setAvs(computedAvs);
+                    ticket.setComputedAvs(computedAvs);
                 }
             }
     }

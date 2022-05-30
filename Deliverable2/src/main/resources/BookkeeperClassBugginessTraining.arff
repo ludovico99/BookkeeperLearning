@@ -336,7 +336,7 @@
 4.1.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/bookie/LedgerEntryPage.java,163,6,2,6,6,3.0,6,4,3.0,40,25,20.0,62.80492228835979,2.0,5,no
 4.1.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/bookie/MarkerFileChannel.java,147,0,0,0,0,0.0,0,0,0.0,0,0,0.0,62.80492228835979,0.0,2,no
 4.1.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/AsyncCallback.java,139,2,1,2,2,2.0,2,2,2.0,15,15,15.0,62.80492228835979,2.0,5,no
-4.1.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/BKException.java,282,11,1,11,11,11.0,11,11,11.0,14,14,14.0,62.80492228835979,11.0,6,yes
+4.1.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/BKException.java,282,11,1,11,11,11.0,11,11,11.0,14,14,14.0,62.80492228835979,11.0,6,no
 4.1.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/BookKeeper.java,546,226,7,112,112,16.0,-2,68,-0.2857142857142857,37,7,5.285714285714286,62.80492228835979,3218.0510367063494,10,yes
 4.1.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/BookieWatcher.java,216,19,4,15,15,3.75,11,7,2.75,23,7,5.75,62.80492228835979,127.60984457671958,9,yes
 4.1.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/CRC32DigestManager.java,55,5,1,5,5,5.0,5,5,5.0,3,3,3.0,62.80492228835979,5.0,3,no
@@ -573,7 +573,7 @@
 4.1.1,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/LedgerOpenOp.java,189,66,3,42,42,14.0,18,38,6.0,61,46,20.333333333333332,93.81087466931217,1.0,5,no
 4.1.1,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/LedgerRecoveryOp.java,153,0,2,0,0,0.0,0,0,0.0,56,40,28.0,93.81087466931217,0.0,6,yes
 4.1.1,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/MacDigestManager.java,84,0,0,0,0,0.0,0,0,0.0,0,0,0.0,93.81087466931217,0.0,6,yes
-4.1.1,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/PendingAddOp.java,182,67,5,40,40,8.0,13,34,2.6,51,20,10.2,93.81087466931217,93.81087466931217,7,yes
+4.1.1,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/PendingAddOp.java,182,67,5,40,40,8.0,13,34,2.6,51,20,10.2,93.81087466931217,93.81087466931217,7,no
 4.1.1,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/PendingReadOp.java,358,559,12,364,364,30.333333333333332,169,122,14.083333333333334,111,40,9.25,93.81087466931217,187.62174933862434,9,yes
 4.1.1,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/RoundRobinDistributionSchedule.java,109,23,2,21,21,10.5,19,15,9.5,25,20,12.5,93.81087466931217,15.0,5,no
 4.1.1,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/SyncCounter.java,85,0,0,0,0,0.0,0,0,0.0,0,0,0.0,93.81087466931217,0.0,2,no

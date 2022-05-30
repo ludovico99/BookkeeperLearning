@@ -3,17 +3,16 @@ package org.learning.bookkeeperlearning.controller;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.Repository;
 import org.learning.bookkeeperlearning.entity.*;
+import org.learning.bookkeeperlearning.utilityclasses.Utilities;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class DataSetController {
 
-    private static final String JAVA_FILES = ".java";
+    private static final Logger logger = Logger.getLogger("Data set computation info:");
 
     public DataSetEntity computeDataSet (List<ReleaseEntity> releases, List<JiraTicketsEntity> jiraTicketsEntityList,
                                             List<CommitEntity> commitEntityList){
@@ -35,59 +34,94 @@ public abstract class DataSetController {
         int ov;
         int fv;
 
-        List<Double> p = new ArrayList<>();
-        List<Double> meanFvIV = new ArrayList<>();
-        int count1;
-        int count2;
-        for (int z =1;z<releases.size();z++) {
-            List<ReleaseEntity> aux= releases.subList(0, z + 1);
-            count1 =0;
-            count2=0;
-            p.add(0.0);
-            meanFvIV.add(0.0);
-            for (JiraTicketsEntity tickets : jiraTicketsEntityList) {
-                if (!tickets.getAvsJira().isEmpty()) {//<-- Ho injected version
-                    List<ReleaseEntity> affectedVersions = tickets.getAvsJira();
-                    List<Integer> indexes = new ArrayList<>();
-                    for (ReleaseEntity str : affectedVersions) {//trovare l'earliest AVs
-                        for (int j = 0; j<aux.size();j++) {
-                            if (aux.get(j).getVersion().contains(str.getVersion())) {
-                                indexes.add(j);
-                            }
-                        }
-                    }
-                    Collections.sort(indexes);//almeno una delle versioni è in AVs
-                    if (!indexes.isEmpty()) iv = indexes.get(0);
-                    ov = aux.indexOf(tickets.getOv());
-                    fv = aux.indexOf(tickets.getFv());
+        double p;
+        double meanFvIV;
+        int numberProportion;
+        int numberFvIvDiff;
 
-                    if (fv > iv && iv != -1 && fv != -1) {
-                        count2++;
-                        meanFvIV.set(z - 1, meanFvIV.get(z - 1) + fv - iv);
+        for (int z =1;z<releases.size();z++) {
+            // Calcolo proportion da 0 fino alla versione in posizione z
+            List<ReleaseEntity> releasesToBeConsidered = releases.subList(0, z + 1);
+
+            numberProportion = 0;
+            numberFvIvDiff = 0;
+            p = 0.0;
+            meanFvIV = 0.0;
+
+            for (JiraTicketsEntity ticket : jiraTicketsEntityList) {
+                if (!ticket.getAvsJira().isEmpty()) {//<-- Ho injected version
+
+                    iv = findEarliestAVsJira(ticket, releasesToBeConsidered);
+
+                    ov = releasesToBeConsidered.indexOf(ticket.getOv());
+                    fv = releasesToBeConsidered.indexOf(ticket.getFv());
+
+                    if (isMeanFvIvValid(fv, iv)) {
+                        numberFvIvDiff++;
+                        meanFvIV += fv - iv;
                     }
-                    if (iv != -1 && ov != -1 && fv != -1 && fv > ov && iv <= ov ) {
-                        count1++;
-                        p.set(z - 1, p.get(z - 1) + (double) (fv - iv) / (double) (fv - ov));
+                    if (isProportionValid(iv, ov, fv)) {
+                        numberProportion++;
+                        p += (double) (fv - iv) / (double) (fv - ov);
                     }
                 }
             }
-            if(count1==0) p.set(z-1,0.0);
-            else p.set(z-1,p.get(z-1)/count1);
+            double[] res = computeProportionAndFvIvDiff(p, meanFvIV, numberProportion, numberFvIvDiff);
+            addChangesToTickets(jiraTicketsEntityList, res[0],res[1]);
 
-            if (count2 == 0) meanFvIV.set(z-1,1.0);
-            else meanFvIV.set(z-1,meanFvIV.get(z - 1) /count2);
-            Object[] log = new Object[] {count1,count2};
-            Logger.getAnonymousLogger().log(Level.INFO,"numero di tickets consistenti: [{0},{1}]" ,log);
-            log = new Object[] {p.get(z-1),meanFvIV.get(z-1)};
-            Logger.getAnonymousLogger().log(Level.INFO,"proportion, meanfv-iv = [{0};{1}]",log);
+
+
         }
 
+    }
+
+    private void addChangesToTickets (List <JiraTicketsEntity> jiraTicketsEntityList, double p, double meanFvIV){
+        // Per semplicità per ogni ticket memorizzo la lista di incremental p e meanFvIv calcolati
         for (JiraTicketsEntity tickets : jiraTicketsEntityList){
-            tickets.setIncrementalP(p);
-            tickets.setIncrementalFvIv(meanFvIV);
+            tickets.addIncrementalP(p);
+            tickets.addIncrementalMeanFvIV(meanFvIV);
         }
-        Logger.getAnonymousLogger().log(Level.INFO,"Mean Proportion= {0}" , p.get(p.size() - 1));
-        Logger.getAnonymousLogger().log(Level.INFO,"Mean FV - IV = {0}" , meanFvIV.get(meanFvIV.size() - 1));
+    }
+
+    private double[] computeProportionAndFvIvDiff (double p, double meanFvIV, int numberProportion, int numberFvIvDiff ){
+        // Risolvo i casi estremi in cui i consistency check non sono rispettati
+
+        if(numberProportion == 0) p = 0.0;
+        else p = p / numberProportion;
+
+        if (numberFvIvDiff == 0) meanFvIV = 1.0 ;
+        else meanFvIV = meanFvIV / numberFvIvDiff;
+
+        Object[] log = new Object[] {numberProportion,numberFvIvDiff};
+        logger.log(Level.INFO,"numero di tickets consistenti: [{0},{1}]" ,log);
+        log = new Object[] {p,meanFvIV};
+        logger.log(Level.INFO,"incr. proportion, incr. Mean FV-IV = [{0};{1}]",log);
+
+        return new double[]{p, meanFvIV};
+    }
+
+    private boolean isProportionValid (int iv,int ov,int fv){
+       return  iv != -1 && ov != -1 && fv != -1 && fv > ov && iv <= ov;
+    }
+
+    private boolean isMeanFvIvValid (int fv, int iv){
+        return fv > iv && iv != -1 && fv != -1;
+    }
+
+    private int findEarliestAVsJira (JiraTicketsEntity ticket,  List<ReleaseEntity> releasesToBeConsidered){
+        // Calcolo la piu piccola Realease tra le affected versions dichiarate nel ticket jira
+        // ReleaseToBeConsidered è una lista ordinata delle versioni.
+        int iv = -1;
+        List<ReleaseEntity> affectedVersions = ticket.getAvsJira();
+        for (ReleaseEntity str : affectedVersions) {//trovare l'earliest AVs
+            for (int j = 0; j<releasesToBeConsidered.size();j++) {
+                if (releasesToBeConsidered.get(j).getVersion().contains(str.getVersion())) {
+                    iv = j;
+                   return iv ;
+                }
+            }
+        }
+        return iv; // Se non non esiste un Av valida ritorna -1
     }
 
 
@@ -101,30 +135,29 @@ public abstract class DataSetController {
                         count2++;
                         List<DiffEntry> dfs = GitController.diffCommit(rev.getCommit().getName());
                         for (DiffEntry diff : dfs) {
-                            if (diff.getNewPath().endsWith(JAVA_FILES)) {
-                                String[] tokens = diff.getNewPath().split("/");
-                                if (!tokens[tokens.length - 1].contains("test") && !tokens[tokens.length - 1].contains("Test")) {
-                                    for (ReleaseEntity releaseEntity: releases) {
-                                        for (JavaFileEntity javaFile :releaseEntity.getJavaFiles()) {
-                                            if (javaFile.getClassName().equals(diff.getNewPath()) &&
-                                                    rev.getTicket().getAvs().contains(releaseEntity)) {
-                                                javaFile.setBugginess("yes");
-                                            }
-                                        }
-                                    }
-
-                                }
-                            }
+                            setBugginess(diff,releases,rev);
                         }
                     }
-
                 }
             }
-            Logger.getAnonymousLogger().log(Level.INFO, "Totale commits con ticket ID: {0}",count2);
+            logger.log(Level.INFO, "Totale commits con ticket ID: {0}",count2);
 
         } catch (Exception e) {
             e.printStackTrace();
             GitController.getGit().close();
+        }
+    }
+
+    private void setBugginess(DiffEntry diff, List<ReleaseEntity> releases, CommitEntity rev) {
+        if (Boolean.TRUE.equals(Utilities.isAJavaFileExcludeTests(diff))) {
+            for (ReleaseEntity releaseEntity : releases) {
+                for (JavaFileEntity javaFile : releaseEntity.getJavaFiles()) {
+                    if (javaFile.getClassName().equals(diff.getNewPath()) &&
+                            rev.getTicket().getComputedAvs().contains(releaseEntity)) {
+                        javaFile.setBugginess("yes");
+                    }
+                }
+            }
         }
     }
 

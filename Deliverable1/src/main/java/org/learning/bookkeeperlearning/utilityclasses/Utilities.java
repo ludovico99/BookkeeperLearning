@@ -1,5 +1,6 @@
 package org.learning.bookkeeperlearning.utilityclasses;
 
+import org.eclipse.jgit.diff.DiffEntry;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.learning.bookkeeperlearning.entity.ReleaseEntity;
@@ -58,6 +59,14 @@ public class Utilities {
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(source);
         return m.find();
+    }
+
+    public static Boolean isAJavaFileExcludeTests (DiffEntry diff) {
+        String javaSuffix = ".java";
+        String[] newName = diff.getNewPath().split("/");
+        if (newName[newName.length - 1].contains("test") || newName[newName.length - 1].contains("Test")) return false;
+
+        return diff.getOldPath().endsWith(javaSuffix) || diff.getNewPath().endsWith(javaSuffix);
     }
 
 

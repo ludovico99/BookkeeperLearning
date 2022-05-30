@@ -67,7 +67,7 @@ public class TestingSetController extends DataSetController {
                 if (iv < 0) iv = 0; // ho sottratto mean fv-iv ed è maggiore di fv
                 computedAvs= new ArrayList<>(releases.subList(iv, fv));
                 ticket.setIv(releases.get(iv));
-                ticket.setAvs(computedAvs);
+                ticket.setComputedAvs(computedAvs);
             }
         }
     }

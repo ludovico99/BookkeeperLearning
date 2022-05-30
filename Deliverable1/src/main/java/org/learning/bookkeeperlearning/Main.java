@@ -54,6 +54,7 @@ public class Main {
          * 3.2: Calcolo delle features data la coppia versione e classe.
          * 3.3: Calcolo alcune statistiche
          * */
+
         logger.log(Level.INFO,"Binding e features computation...");
 
         FeaturesController featuresController = new FeaturesController();
@@ -70,6 +71,15 @@ public class Main {
         }
         logger.log(Level.INFO,"Totale classi/numero righe tra tutte le releases: {0}",nRows);
 
+
+        /* FASE 4: Creazione del training set (incremental proportion), testing set (mean proportion over whole releases
+        e generazione di due files Arff:
+         * 4.1: Ho il binding tra tickets e commits. Trovo le avs relativi a tutti i tickets. Le classi modificate da
+          commits, contrassegnati da ticktes id di tipo bug e che hanno interessato una release tra quelle AVs
+          per quel ticket, sono buggy.
+         * 4.2: Creazione direttamente dell' Arff file per il training e testing set e successiva chiusura dello stream
+         sui files.
+         * */
 
         logger.log(Level.INFO,"Data set and arff files creation ...");
 
