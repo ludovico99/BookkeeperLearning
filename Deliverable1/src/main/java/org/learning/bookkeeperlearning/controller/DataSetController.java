@@ -121,7 +121,7 @@ public abstract class DataSetController {
                 }
             }
         }
-        return iv; // Se non non esiste un Av valida ritorna -1
+        return iv; // Se non  esiste un Av valida in jira (presente tra le versione released) ritorna -1
     }
 
 

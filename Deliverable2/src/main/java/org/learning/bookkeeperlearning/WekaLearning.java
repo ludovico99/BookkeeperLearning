@@ -18,15 +18,10 @@ public class WekaLearning {
 
 
     public static void main(String[] args) throws Exception {
-        //load datasets
 
         DataSource source1 = new DataSource(".\\Deliverable2\\src\\main\\resources\\BookkeeperClassBugginessTraining.arff");
         DataSource source2 = new DataSource(".\\Deliverable2\\src\\main\\resources\\BookkeeperClassBugginessTesting.arff");
-        //BookkeeperClassBugginessTraining.arff
-        //BookkeeperClassBugginessTesting.arff
 
-        //StormClassBugginessTraining.arff
-        //StormClassBugginessTesting.arff
         Validation walkForwardStd = new WalkForwardStd(source1,source2);
 
         List<LearningModelEntity> res = new ArrayList<>(walkForwardStd.validation());
