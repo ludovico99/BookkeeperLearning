@@ -37,9 +37,9 @@ public class WekaLearning {
 
         res.addAll(walkForwardWithBalancingAndFeatureSelection.validation());
 
-        BoxChart chart = walkForwardWithBalancingAndFeatureSelection.showChart(res, MetricsEnum.ACCURACY);
+        BoxChart chart = walkForwardWithBalancingAndFeatureSelection.showChart(res, MetricsEnum.KAPPA);
 
-        walkForwardWithBalancingAndFeatureSelection.saveChart(chart,"all");
+        walkForwardWithBalancingAndFeatureSelection.saveChart(chart,"Kappa_all");
 
 
 
