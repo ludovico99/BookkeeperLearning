@@ -110,7 +110,7 @@
 4.0.0,hedwig-server/src/main/java/org/apache/hedwig/server/proxy/ProxySubscribeHandler.java,83,83,3,83,83,27.666666666666668,83,82,27.666666666666668,550,282,183.33333333333334,35.85423115079365,1.0,3,no
 4.0.0,hedwig-server/src/main/java/org/apache/hedwig/server/proxy/ProxyUnsubscribeHandler.java,74,74,1,74,74,74.0,74,74,74.0,282,282,282.0,35.85423115079365,2653.2131051587303,1,no
 4.0.0,hedwig-server/src/main/java/org/apache/hedwig/server/regions/HedwigHubClient.java,48,48,2,48,48,24.0,48,48,24.0,312,282,156.0,35.85423115079365,0.0,2,no
-4.0.0,hedwig-server/src/main/java/org/apache/hedwig/server/regions/HedwigHubClientFactory.java,60,60,2,60,60,30.0,60,60,30.0,453,282,226.5,35.85423115079365,0.0,3,no
+4.0.0,hedwig-server/src/main/java/org/apache/hedwig/server/regions/HedwigHubClientFactory.java,60,60,2,60,60,30.0,60,60,30.0,453,282,226.5,35.85423115079365,0.0,3,yes
 4.0.0,hedwig-server/src/main/java/org/apache/hedwig/server/regions/HedwigHubSubscriber.java,70,70,3,70,70,23.333333333333332,70,70,23.333333333333332,483,282,161.0,35.85423115079365,0.0,3,no
 4.0.0,hedwig-server/src/main/java/org/apache/hedwig/server/regions/RegionManager.java,183,183,4,183,183,45.75,183,180,45.75,580,282,145.0,35.85423115079365,0.0,4,yes
 4.0.0,hedwig-server/src/main/java/org/apache/hedwig/server/ssl/SslServerContextFactory.java,53,53,1,53,53,53.0,53,53,53.0,282,282,282.0,35.85423115079365,1900.2742509920636,1,no
@@ -158,7 +158,7 @@
 4.0.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/DigestManager.java,185,185,5,185,185,37.0,185,184,37.0,411,171,82.2,35.81087466931217,1.0,5,yes
 4.0.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/DistributionSchedule.java,61,61,3,61,61,20.333333333333332,61,61,20.333333333333332,309,171,103.0,35.81087466931217,0.0,5,yes
 4.0.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/LedgerCreateOp.java,157,185,8,171,171,21.375,157,167,19.625,504,171,63.0,35.81087466931217,503.3522453703704,6,yes
-4.0.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/LedgerDeleteOp.java,81,83,4,82,82,20.5,81,80,20.25,422,171,105.5,35.81087466931217,36.81087466931217,5,no
+4.0.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/LedgerDeleteOp.java,81,83,4,82,82,20.5,81,80,20.25,422,171,105.5,35.81087466931217,36.81087466931217,5,yes
 4.0.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/LedgerEntry.java,84,142,3,113,113,37.666666666666664,84,83,28.0,387,171,129.0,35.81087466931217,1.0,6,no
 4.0.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/LedgerHandle.java,762,1678,12,1220,1220,101.66666666666667,762,547,63.5,547,171,45.583333333333336,35.81087466931217,0.0,11,yes
 4.0.0,bookkeeper-server/src/main/java/org/apache/bookkeeper/client/LedgerMetadata.java,248,260,7,254,254,36.285714285714285,248,198,35.42857142857143,434,171,62.0,35.81087466931217,71.62174933862434,9,yes
@@ -722,7 +722,7 @@
 4.1.1,hedwig-client/src/main/java/org/apache/hedwig/util/VarArgs.java,26,26,1,26,26,26.0,26,26,26.0,35,35,35.0,15.851954365079365,412.1508134920635,1,no
 4.1.1,bookkeeper-server/src/main/java/org/apache/bookkeeper/replication/ReplicationEnableCb.java,56,56,1,56,56,56.0,56,56,56.0,8,8,8.0,14.787650462962963,828.108425925926,2,no
 4.1.1,bookkeeper-server/src/main/java/org/apache/bookkeeper/replication/AutoRecoveryMain.java,281,303,7,292,292,41.714285714285715,281,267,40.142857142857146,75,20,10.714285714285714,14.752862103174603,8.0,6,yes
-4.1.1,bookkeeper-server/src/main/java/org/apache/bookkeeper/bookie/LedgerDirsManager.java,268,268,3,268,268,89.33333333333333,268,240,89.33333333333333,32,16,10.666666666666666,12.763839285714285,1.0,5,no
+4.1.1,bookkeeper-server/src/main/java/org/apache/bookkeeper/bookie/LedgerDirsManager.java,268,268,3,268,268,89.33333333333333,268,240,89.33333333333333,32,16,10.666666666666666,12.763839285714285,1.0,5,yes
 4.1.1,bookkeeper-server/src/main/java/org/apache/bookkeeper/util/DiskChecker.java,168,168,2,168,168,84.0,168,166,84.0,29,16,14.5,12.763839285714285,2.0,4,no
 4.1.1,hedwig-server/src/main/java/org/apache/hedwig/server/handlers/SubscriptionChannelManager.java,214,214,3,214,214,71.33333333333333,214,153,71.33333333333333,37,26,12.333333333333334,12.2191832010582,22.0,2,no
 4.1.1,hedwig-client/src/main/java/org/apache/hedwig/client/handlers/CloseSubscriptionResponseHandler.java,84,84,1,84,84,84.0,84,84,84.0,16,16,16.0,12.213811177248678,1025.9601388888889,2,no
