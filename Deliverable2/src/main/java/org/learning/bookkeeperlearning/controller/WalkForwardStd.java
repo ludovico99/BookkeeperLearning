@@ -6,7 +6,6 @@ import weka.classifiers.Evaluation;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
 
-import java.util.List;
 
 public class WalkForwardStd extends Validation {
 
@@ -16,12 +15,17 @@ public class WalkForwardStd extends Validation {
 
 
     @Override
-    public Evaluation buildModel(AbstractClassifier classifier ,Instances training,Instances testing,LearningModelEntity modelEntity) throws Exception {
-        classifier.buildClassifier(training);
-        Evaluation eval = new Evaluation(training);
+    public Evaluation buildModel(AbstractClassifier classifier ,Instances training,Instances testing,LearningModelEntity modelEntity) {
+        try {
+            classifier.buildClassifier(training);
+            Evaluation eval = new Evaluation(training);
 
-        eval.evaluateModel(classifier, testing);
-        return eval;
+            eval.evaluateModel(classifier, testing);
+            return eval;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

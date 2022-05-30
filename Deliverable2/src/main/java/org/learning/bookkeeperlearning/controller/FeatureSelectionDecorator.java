@@ -9,7 +9,6 @@ import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
 
-import java.util.List;
 
 public class FeatureSelectionDecorator extends Decorator {
 
@@ -19,36 +18,40 @@ public class FeatureSelectionDecorator extends Decorator {
 
 
     @Override
-    public Evaluation buildModel(AbstractClassifier classifier, Instances training,Instances testing,LearningModelEntity modelEntity) throws Exception {
+    public Evaluation buildModel(AbstractClassifier classifier, Instances training,Instances testing,LearningModelEntity modelEntity) {
+        try {
+            modelEntity.setFeatureSelection(true);
 
-        modelEntity.setFeatureSelection(true);
+            AttributeSelection filter = new AttributeSelection();
+            //create evaluator and search algorithm objects
+            CfsSubsetEval subsetEval = new CfsSubsetEval();
+            GreedyStepwise search = new GreedyStepwise();
 
-        AttributeSelection filter = new AttributeSelection();
-        //create evaluator and search algorithm objects
-        CfsSubsetEval subsetEval = new CfsSubsetEval();
-        GreedyStepwise search = new GreedyStepwise();
+            //set the algorithm to search backward
+            search.setSearchBackwards(true);
+            //set the filter to use the evaluator and search algorithm
+            filter.setEvaluator(subsetEval);
 
-        //set the algorithm to search backward
-        search.setSearchBackwards(true);
-        //set the filter to use the evaluator and search algorithm
-        filter.setEvaluator(subsetEval);
+            filter.setSearch(search);
+            //specify the dataset
 
-        filter.setSearch(search);
-        //specify the dataset
+            filter.setInputFormat(training);
 
-        filter.setInputFormat(training);
+            Instances trainingFiltered = Filter.useFilter(training, filter);
+            Instances testingFiltered = Filter.useFilter(testing, filter);
 
-        Instances trainingFiltered = Filter.useFilter(training, filter);
-        Instances testingFiltered = Filter.useFilter(testing, filter);
+            int numAttrFiltered = trainingFiltered.numAttributes();
 
-        int numAttrFiltered = trainingFiltered.numAttributes();
+            trainingFiltered.setClassIndex(numAttrFiltered - 1);
+            testingFiltered.setClassIndex(numAttrFiltered - 1);
 
-        trainingFiltered.setClassIndex(numAttrFiltered - 1);
-        testingFiltered.setClassIndex(numAttrFiltered - 1);
+            Evaluation eval = this.getValidation().buildModel(classifier, trainingFiltered, testingFiltered, modelEntity);
+            eval.evaluateModel(classifier, testingFiltered);
 
-        Evaluation eval = this.getValidation().buildModel(classifier,trainingFiltered,testingFiltered,modelEntity);
-        eval.evaluateModel(classifier, testingFiltered);
-
-        return eval;
+            return eval;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

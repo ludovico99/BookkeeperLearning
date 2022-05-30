@@ -10,7 +10,6 @@ import weka.filters.supervised.instance.Resample;
 import weka.filters.supervised.instance.SMOTE;
 import weka.filters.supervised.instance.SpreadSubsample;
 
-import java.util.List;
 
 public class BalancingDecorator extends Decorator {
 
@@ -57,29 +56,35 @@ public class BalancingDecorator extends Decorator {
 
 
     @Override
-    public Evaluation buildModel(AbstractClassifier classifier, Instances training, Instances testing,LearningModelEntity modelEntity) throws Exception {
-        FilteredClassifier fc = new FilteredClassifier();
-        fc.setClassifier(classifier);
+    public Evaluation buildModel(AbstractClassifier classifier, Instances training, Instances testing,LearningModelEntity modelEntity){
+        try {
+            FilteredClassifier fc = new FilteredClassifier();
+            fc.setClassifier(classifier);
 
-        if(value.equals(BalancingEnum.SMOTE_SAMPLING)){
-            initSmote(fc,training);
-            modelEntity.setBalancing("SMOTE-sampling");
+            if (value.equals(BalancingEnum.SMOTE_SAMPLING)) {
+                initSmote(fc, training);
+                modelEntity.setBalancing("SMOTE-sampling");
+            } else if (value.equals(BalancingEnum.OVER_SAMPLING)) {
+                initOverSampling(fc, training);
+                modelEntity.setBalancing("OVER-sampling");
+            } else {
+                initUnderSampling(fc);
+                modelEntity.setBalancing("UNDER-sampling");
+
+            }
+
+            fc.buildClassifier(training);
+
+            Evaluation eval = this.getValidation().buildModel(fc,training,testing,modelEntity);
+
+            eval.evaluateModel(fc, testing);
+
+            return eval;
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        else if (value.equals(BalancingEnum.OVER_SAMPLING)){
-            initOverSampling(fc,training);
-            modelEntity.setBalancing("OVER-sampling");
-        }
-        else {
-            initUnderSampling(fc);
-            modelEntity.setBalancing("UNDER-sampling");
-        }
 
-        fc.buildClassifier(training);
-
-        Evaluation eval = this.getValidation().buildModel(fc,training,testing,modelEntity);
-
-        eval.evaluateModel(fc, testing);
-
-        return eval;
+        return null;
     }
 }

@@ -88,7 +88,7 @@ public abstract class Validation {
         this.trainingSet = trainingSet;
     }
 
-    public List<LearningModelEntity> validation() throws Exception {
+    public List<LearningModelEntity> validation() {
         createInstances();
 
         List<LearningModelEntity> results = initLearningModelEntities();
@@ -214,6 +214,6 @@ public abstract class Validation {
         }
     }
 
-    public abstract Evaluation buildModel(AbstractClassifier classifier, Instances trainings, Instances testings,LearningModelEntity modelEntity) throws Exception;
+    public abstract Evaluation buildModel(AbstractClassifier classifier, Instances trainings, Instances testings,LearningModelEntity modelEntity) ;
 }
 
