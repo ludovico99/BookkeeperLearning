@@ -20,16 +20,18 @@ public  class BoxChart extends ApplicationFrame {
 
     public BoxChart(String applicationTitle, String chartTitle, MetricsEnum metricsEnum, List<LearningModelEntity> learningModelEntityList) {
         super( applicationTitle );
-        JFreeChart barChart = ChartFactory.createBoxAndWhiskerChart(
+
+
+        JFreeChart boxChart = ChartFactory.createBoxAndWhiskerChart(
                 chartTitle,
                 "MODELLO",
                 metricsEnum.name(),
                 createDataset(learningModelEntityList,metricsEnum),
                 true);
 
-        chart = barChart;
+        chart = boxChart;
 
-        ChartPanel chartPanel = new ChartPanel( barChart );
+        ChartPanel chartPanel = new ChartPanel( boxChart );
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         chartPanel.setPreferredSize(new java.awt.Dimension(dim.width, dim.height));
         setContentPane( chartPanel );
@@ -40,20 +42,23 @@ public  class BoxChart extends ApplicationFrame {
             final DefaultBoxAndWhiskerCategoryDataset dataset = new DefaultBoxAndWhiskerCategoryDataset();
 
             int iterations = learningModelEntityList.get(0).getIterations();
-            for (int j=0; j<learningModelEntityList.size(); j++) {
+            for (LearningModelEntity learningModelEntity : learningModelEntityList) {
                 List<Double> values = new ArrayList<>();
-                String classifier = learningModelEntityList.get(j).getClassifier();
+                String classifier = learningModelEntity.getClassifier();
                 for (int i = 0; i < iterations; i++) {
-                    if (metricsEnum.equals(MetricsEnum.ACCURACY)) values.add(learningModelEntityList.get(j).getAccuracy().get(i));
-                    else if (metricsEnum.equals(MetricsEnum.RECALL))   values.add(learningModelEntityList.get(j).getRecall().get(i));
-                    else if (metricsEnum.equals(MetricsEnum.PRECISION))  values.add(learningModelEntityList.get(j).getPrecision().get(i));
-                    else if (metricsEnum.equals(MetricsEnum.KAPPA))  values.add(learningModelEntityList.get(j).getKappa().get(i));
-                    else values.add(learningModelEntityList.get(j).getRocAuc().get(i));
+                    if (metricsEnum.equals(MetricsEnum.ACCURACY)) values.add(learningModelEntity.getAccuracy().get(i));
+                    else if (metricsEnum.equals(MetricsEnum.RECALL)) values.add(learningModelEntity.getRecall().get(i));
+                    else if (metricsEnum.equals(MetricsEnum.PRECISION))
+                        values.add(learningModelEntity.getPrecision().get(i));
+                    else if (metricsEnum.equals(MetricsEnum.KAPPA)) values.add(learningModelEntity.getKappa().get(i));
+                    else values.add(learningModelEntity.getRocAuc().get(i));
                 }
 
                 BoxAndWhiskerItem item = BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(values);
-                dataset.add(item, classifier , "modello " + (j+1) );
-            }
+                String columnKey = "Walk Forward " + learningModelEntity.getBalancing();
+                if (learningModelEntity.isFeatureSelection()) columnKey = columnKey + " fs";
+                dataset.add(item, classifier,columnKey);
+        }
             return dataset;
         }
 
