@@ -3,6 +3,7 @@ package org.learning.bookkeeperlearning.utility;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.data.statistics.BoxAndWhiskerCalculator;
 import org.jfree.data.statistics.BoxAndWhiskerItem;
 import org.jfree.data.statistics.DefaultBoxAndWhiskerCategoryDataset;
@@ -30,6 +31,13 @@ public  class BoxChart extends ApplicationFrame {
                 true);
 
         chart = boxChart;
+
+        CategoryPlot plot =  boxChart.getCategoryPlot();
+        plot.getDomainAxis().setMaximumCategoryLabelLines(2);
+
+        plot.setRangeGridlinesVisible(true);
+
+
 
         ChartPanel chartPanel = new ChartPanel( boxChart );
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
