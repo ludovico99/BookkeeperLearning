@@ -90,7 +90,7 @@ public class BalancingDecorator extends Decorator {
             return eval;
 
         }catch (Exception e){
-            logger.log(Level.SEVERE,"Error in walk balancing evaluation",e);
+            logger.log(Level.SEVERE,"Error in balancing evaluation",e);
         }
 
         return null;

@@ -36,7 +36,7 @@ public abstract class Validation {
     public List<LearningModelEntity> validation() {
 
         DataSource trainingSet = validationEntity.getTrainingSet();
-        DataSource testingSet = validationEntity.getTrainingSet();
+        DataSource testingSet = validationEntity.getTestingSet();
         List<AbstractClassifier> classifiers = validationEntity.getClassifiers();
 
         int iterations = createInstances(trainingSet, testingSet);

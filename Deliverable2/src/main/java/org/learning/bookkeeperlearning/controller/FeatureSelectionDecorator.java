@@ -56,7 +56,7 @@ public class FeatureSelectionDecorator extends Decorator {
 
             return eval;
         }catch (Exception e){
-            logger.log(Level.SEVERE,"Error in cost feature selection evaluation",e);
+            logger.log(Level.SEVERE,"Error in feature selection evaluation",e);
         }
         return null;
     }
