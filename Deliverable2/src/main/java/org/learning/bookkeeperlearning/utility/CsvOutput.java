@@ -58,7 +58,7 @@ public class CsvOutput {
             writer.append("Kappa");
             writer.append("\n");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"Error in appending something" ,e);
         }
     }
 

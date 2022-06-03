@@ -108,7 +108,7 @@ public class GitController {
             formatter.setRepository(repo);
             formatter.format(oldTreeIterator, newTreeIterator);
         } catch (Exception e){
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"Error in DiffFormatter method");
         }
         Logger.getAnonymousLogger().log(Level.INFO,"LogCommit: {}", newCommit);
         String logMessage = newCommit.getFullMessage();
