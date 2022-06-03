@@ -21,7 +21,7 @@ public class BalancingDecorator extends Decorator {
     private final Logger logger = Logger.getLogger("Balancing log");
 
     public BalancingDecorator(Validation val, BalancingEnum value) {
-        super(val.dataSetName + " with balancing techniques",val);
+        super(val.validationEntity.getDataSetName() + " with balancing techniques",val);
         this.value = value;
 
     }

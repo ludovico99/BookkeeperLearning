@@ -4,9 +4,9 @@ public abstract class Decorator extends Validation {
 
     private Validation validation;
 
-    protected Decorator(String dataSetName,Validation validation) {
-        super(validation.getTrainingSet(),validation.getTestingSet(),dataSetName);
-        this.validation = validation;
+    protected Decorator(String dataSetName,Validation val) {
+        super(val.validationEntity.getTrainingSet(),val.validationEntity.getTestingSet(),dataSetName);
+        this.validation = val;
     }
 
     public Validation getValidation() {

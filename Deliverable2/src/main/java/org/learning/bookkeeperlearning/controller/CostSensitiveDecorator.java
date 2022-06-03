@@ -15,15 +15,15 @@ public class CostSensitiveDecorator extends Decorator{
     private final Logger logger = Logger.getLogger("Cost sensitive log");
 
 
-    public CostSensitiveDecorator(Validation validation) {
-        super(validation.dataSetName + " with cost sensitive", validation);
+    public CostSensitiveDecorator(Validation val) {
+        super(val.validationEntity.getDataSetName() + " with cost sensitive", val);
     }
 
     private CostMatrix createCostMatrix() {
         CostMatrix costMatrix = new CostMatrix(2);
         costMatrix.setCell(0, 0, 0.0);
-        costMatrix.setCell(1, 0, 1.0);
-        costMatrix.setCell(0, 1, 10.0);
+        costMatrix.setCell(1, 0, 10.0);
+        costMatrix.setCell(0, 1, 1.0);
         costMatrix.setCell(1, 1, 0.0);
         return costMatrix;
     }

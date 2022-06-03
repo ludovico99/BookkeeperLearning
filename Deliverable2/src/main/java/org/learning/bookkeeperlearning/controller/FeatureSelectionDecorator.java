@@ -17,8 +17,8 @@ public class FeatureSelectionDecorator extends Decorator {
 
     private final Logger logger = Logger.getLogger("Feature selection log");
 
-    public FeatureSelectionDecorator(Validation validation) {
-        super(validation.dataSetName + " with feature selection", validation);
+    public FeatureSelectionDecorator(Validation val) {
+        super(val.validationEntity.getDataSetName() + " with feature selection", val);
     }
 
 
