@@ -1,7 +1,7 @@
 Classifier, DataSet Name, #Training release, %Training, #Defective Training, #Defective Testing, Balancing, Feature Selection, Sensitivity, TP, FP, TN, FN, Recall, Precision, Accuracy, ROC AUC, Kappa
-NaiveBayes, Bugginess classifier, 1, 7.5, 98, 108, , false, false, 48.0, 3.0, 120.0, 60.0, 0.44, 0.94, 72.73, 0.75, 0.43
-RandomForest, Bugginess classifier, 1, 7.5, 98, 108, , false, false, 100.0, 53.0, 70.0, 8.0, 0.93, 0.65, 73.59, 0.83, 0.48
-IBk, Bugginess classifier, 1, 7.5, 98, 108, , false, false, 90.0, 31.0, 92.0, 18.0, 0.83, 0.74, 78.79, 0.79, 0.58
+NaiveBayes, Bugginess classifier, 1, 7.5, 98, 108, false, false, false, 48.0, 3.0, 120.0, 60.0, 0.44, 0.94, 72.73, 0.75, 0.43
+RandomForest, Bugginess classifier, 1, 7.5, 98, 108, false, false, false, 100.0, 53.0, 70.0, 8.0, 0.93, 0.65, 73.59, 0.83, 0.48
+IBk, Bugginess classifier, 1, 7.5, 98, 108, false, false, false, 90.0, 31.0, 92.0, 18.0, 0.83, 0.74, 78.79, 0.79, 0.58
 NaiveBayes, Bugginess classifier with balancing techniques, 1, 7.5, 98, 108, SMOTE-sampling, false, false, 104.0, 8.0, 238.0, 112.0, 0.48, 0.93, 74.03, 0.75, 0.46
 RandomForest, Bugginess classifier with balancing techniques, 1, 7.5, 98, 108, SMOTE-sampling, false, false, 174.0, 70.0, 176.0, 42.0, 0.81, 0.71, 75.76, 0.84, 0.52
 IBk, Bugginess classifier with balancing techniques, 1, 7.5, 98, 108, SMOTE-sampling, false, false, 172.0, 60.0, 186.0, 44.0, 0.8, 0.74, 77.49, 0.78, 0.55
@@ -14,9 +14,12 @@ IBk, Bugginess classifier with balancing techniques with feature selection, 1, 7
 NaiveBayes, Bugginess classifier with balancing techniques with feature selection, 1, 7.5, 98, 108, OVER-sampling, true, false, 243.0, 96.0, 273.0, 81.0, 0.75, 0.72, 74.46, 0.83, 0.49
 RandomForest, Bugginess classifier with balancing techniques with feature selection, 1, 7.5, 98, 108, OVER-sampling, true, false, 222.0, 177.0, 192.0, 102.0, 0.69, 0.56, 59.74, 0.67, 0.2
 IBk, Bugginess classifier with balancing techniques with feature selection, 1, 7.5, 98, 108, OVER-sampling, true, false, 155.0, 97.0, 272.0, 169.0, 0.48, 0.62, 61.62, 0.62, 0.22
-NaiveBayes, Bugginess classifier, 2, 16.9, 205, 82, , false, false, 43.0, 26.0, 220.0, 39.0, 0.52, 0.62, 80.18, 0.83, 0.44
-RandomForest, Bugginess classifier, 2, 16.9, 205, 82, , false, false, 75.0, 90.0, 156.0, 7.0, 0.91, 0.45, 70.43, 0.87, 0.41
-IBk, Bugginess classifier, 2, 16.9, 205, 82, , false, false, 69.0, 93.0, 153.0, 13.0, 0.84, 0.43, 67.68, 0.74, 0.35
+NaiveBayes, Bugginess classifier with cost sensitive with feature selection, 1, 7.5, 98, 108, false, true, true, 98.0, 6.0, 240.0, 118.0, 0.45, 0.94, 73.16, 0.85, 0.44
+RandomForest, Bugginess classifier with cost sensitive with feature selection, 1, 7.5, 98, 108, false, true, true, 110.0, 6.0, 240.0, 106.0, 0.51, 0.95, 75.76, 0.87, 0.5
+IBk, Bugginess classifier with cost sensitive with feature selection, 1, 7.5, 98, 108, false, true, true, 166.0, 50.0, 196.0, 50.0, 0.77, 0.77, 78.35, 0.8, 0.57
+NaiveBayes, Bugginess classifier, 2, 16.9, 205, 82, false, false, false, 43.0, 26.0, 220.0, 39.0, 0.52, 0.62, 80.18, 0.83, 0.44
+RandomForest, Bugginess classifier, 2, 16.9, 205, 82, false, false, false, 75.0, 90.0, 156.0, 7.0, 0.91, 0.45, 70.43, 0.87, 0.41
+IBk, Bugginess classifier, 2, 16.9, 205, 82, false, false, false, 69.0, 93.0, 153.0, 13.0, 0.84, 0.43, 67.68, 0.74, 0.35
 NaiveBayes, Bugginess classifier with balancing techniques, 2, 16.9, 205, 82, SMOTE-sampling, false, false, 90.0, 56.0, 436.0, 74.0, 0.55, 0.62, 80.18, 0.83, 0.45
 RandomForest, Bugginess classifier with balancing techniques, 2, 16.9, 205, 82, SMOTE-sampling, false, false, 152.0, 210.0, 282.0, 12.0, 0.93, 0.42, 66.16, 0.85, 0.36
 IBk, Bugginess classifier with balancing techniques, 2, 16.9, 205, 82, SMOTE-sampling, false, false, 147.0, 240.0, 252.0, 17.0, 0.9, 0.38, 60.82, 0.71, 0.28
@@ -29,9 +32,12 @@ IBk, Bugginess classifier with balancing techniques with feature selection, 2, 1
 NaiveBayes, Bugginess classifier with balancing techniques with feature selection, 2, 16.9, 205, 82, OVER-sampling, true, false, 168.0, 111.0, 627.0, 78.0, 0.68, 0.6, 80.79, 0.83, 0.51
 RandomForest, Bugginess classifier with balancing techniques with feature selection, 2, 16.9, 205, 82, OVER-sampling, true, false, 135.0, 243.0, 495.0, 111.0, 0.55, 0.36, 64.02, 0.72, 0.19
 IBk, Bugginess classifier with balancing techniques with feature selection, 2, 16.9, 205, 82, OVER-sampling, true, false, 147.0, 273.0, 465.0, 99.0, 0.6, 0.35, 62.2, 0.61, 0.18
-NaiveBayes, Bugginess classifier, 3, 30.2, 281, 58, , false, false, 7.0, 16.0, 318.0, 51.0, 0.12, 0.3, 82.91, 0.83, 0.1
-RandomForest, Bugginess classifier, 3, 30.2, 281, 58, , false, false, 49.0, 54.0, 280.0, 9.0, 0.84, 0.48, 83.93, 0.89, 0.52
-IBk, Bugginess classifier, 3, 30.2, 281, 58, , false, false, 41.0, 46.0, 288.0, 17.0, 0.71, 0.47, 83.93, 0.79, 0.47
+NaiveBayes, Bugginess classifier with cost sensitive with feature selection, 2, 16.9, 205, 82, false, true, true, 102.0, 54.0, 438.0, 62.0, 0.62, 0.65, 82.32, 0.86, 0.52
+RandomForest, Bugginess classifier with cost sensitive with feature selection, 2, 16.9, 205, 82, false, true, true, 94.0, 38.0, 454.0, 70.0, 0.57, 0.71, 83.54, 0.87, 0.53
+IBk, Bugginess classifier with cost sensitive with feature selection, 2, 16.9, 205, 82, false, true, true, 128.0, 144.0, 348.0, 36.0, 0.78, 0.47, 72.56, 0.75, 0.4
+NaiveBayes, Bugginess classifier, 3, 30.2, 281, 58, false, false, false, 7.0, 16.0, 318.0, 51.0, 0.12, 0.3, 82.91, 0.83, 0.1
+RandomForest, Bugginess classifier, 3, 30.2, 281, 58, false, false, false, 49.0, 54.0, 280.0, 9.0, 0.84, 0.48, 83.93, 0.89, 0.52
+IBk, Bugginess classifier, 3, 30.2, 281, 58, false, false, false, 41.0, 46.0, 288.0, 17.0, 0.71, 0.47, 83.93, 0.79, 0.47
 NaiveBayes, Bugginess classifier with balancing techniques, 3, 30.2, 281, 58, SMOTE-sampling, false, false, 18.0, 38.0, 630.0, 98.0, 0.16, 0.32, 82.65, 0.83, 0.13
 RandomForest, Bugginess classifier with balancing techniques, 3, 30.2, 281, 58, SMOTE-sampling, false, false, 92.0, 114.0, 554.0, 24.0, 0.79, 0.45, 82.4, 0.87, 0.47
 IBk, Bugginess classifier with balancing techniques, 3, 30.2, 281, 58, SMOTE-sampling, false, false, 92.0, 114.0, 554.0, 24.0, 0.79, 0.45, 82.4, 0.81, 0.47
@@ -44,9 +50,12 @@ IBk, Bugginess classifier with balancing techniques with feature selection, 3, 3
 NaiveBayes, Bugginess classifier with balancing techniques with feature selection, 3, 30.2, 281, 58, OVER-sampling, true, false, 96.0, 117.0, 885.0, 78.0, 0.55, 0.45, 83.42, 0.85, 0.4
 RandomForest, Bugginess classifier with balancing techniques with feature selection, 3, 30.2, 281, 58, OVER-sampling, true, false, 138.0, 234.0, 768.0, 36.0, 0.79, 0.37, 77.04, 0.86, 0.38
 IBk, Bugginess classifier with balancing techniques with feature selection, 3, 30.2, 281, 58, OVER-sampling, true, false, 115.0, 245.0, 757.0, 59.0, 0.66, 0.32, 74.15, 0.76, 0.29
-NaiveBayes, Bugginess classifier, 4, 46.2, 339, 50, , false, false, 10.0, 10.0, 354.0, 40.0, 0.2, 0.5, 87.92, 0.85, 0.23
-RandomForest, Bugginess classifier, 4, 46.2, 339, 50, , false, false, 32.0, 26.0, 338.0, 18.0, 0.64, 0.55, 89.37, 0.88, 0.53
-IBk, Bugginess classifier, 4, 46.2, 339, 50, , false, false, 33.0, 40.0, 324.0, 17.0, 0.66, 0.45, 86.23, 0.78, 0.46
+NaiveBayes, Bugginess classifier with cost sensitive with feature selection, 3, 30.2, 281, 58, false, true, true, 50.0, 16.0, 652.0, 66.0, 0.43, 0.76, 89.54, 0.9, 0.5
+RandomForest, Bugginess classifier with cost sensitive with feature selection, 3, 30.2, 281, 58, false, true, true, 34.0, 10.0, 658.0, 82.0, 0.29, 0.77, 88.27, 0.88, 0.37
+IBk, Bugginess classifier with cost sensitive with feature selection, 3, 30.2, 281, 58, false, true, true, 86.0, 154.0, 514.0, 30.0, 0.74, 0.36, 76.53, 0.79, 0.35
+NaiveBayes, Bugginess classifier, 4, 46.2, 339, 50, false, false, false, 10.0, 10.0, 354.0, 40.0, 0.2, 0.5, 87.92, 0.85, 0.23
+RandomForest, Bugginess classifier, 4, 46.2, 339, 50, false, false, false, 32.0, 26.0, 338.0, 18.0, 0.64, 0.55, 89.37, 0.88, 0.53
+IBk, Bugginess classifier, 4, 46.2, 339, 50, false, false, false, 33.0, 40.0, 324.0, 17.0, 0.66, 0.45, 86.23, 0.78, 0.46
 NaiveBayes, Bugginess classifier with balancing techniques, 4, 46.2, 339, 50, SMOTE-sampling, false, false, 26.0, 26.0, 702.0, 74.0, 0.26, 0.5, 87.92, 0.85, 0.28
 RandomForest, Bugginess classifier with balancing techniques, 4, 46.2, 339, 50, SMOTE-sampling, false, false, 68.0, 70.0, 658.0, 32.0, 0.68, 0.49, 87.68, 0.87, 0.5
 IBk, Bugginess classifier with balancing techniques, 4, 46.2, 339, 50, SMOTE-sampling, false, false, 74.0, 108.0, 620.0, 26.0, 0.74, 0.41, 83.82, 0.8, 0.44
@@ -59,9 +68,12 @@ IBk, Bugginess classifier with balancing techniques with feature selection, 4, 4
 NaiveBayes, Bugginess classifier with balancing techniques with feature selection, 4, 46.2, 339, 50, OVER-sampling, true, false, 108.0, 129.0, 963.0, 42.0, 0.72, 0.46, 86.23, 0.89, 0.48
 RandomForest, Bugginess classifier with balancing techniques with feature selection, 4, 46.2, 339, 50, OVER-sampling, true, false, 120.0, 171.0, 921.0, 30.0, 0.8, 0.41, 83.82, 0.89, 0.46
 IBk, Bugginess classifier with balancing techniques with feature selection, 4, 46.2, 339, 50, OVER-sampling, true, false, 108.0, 153.0, 939.0, 42.0, 0.72, 0.41, 84.3, 0.8, 0.44
-NaiveBayes, Bugginess classifier, 5, 63.0, 389, 65, , false, false, 14.0, 7.0, 376.0, 51.0, 0.22, 0.67, 87.05, 0.89, 0.27
-RandomForest, Bugginess classifier, 5, 63.0, 389, 65, , false, false, 38.0, 19.0, 364.0, 27.0, 0.58, 0.67, 89.73, 0.93, 0.56
-IBk, Bugginess classifier, 5, 63.0, 389, 65, , false, false, 27.0, 29.0, 354.0, 38.0, 0.42, 0.48, 85.04, 0.69, 0.36
+NaiveBayes, Bugginess classifier with cost sensitive with feature selection, 4, 46.2, 339, 50, false, true, true, 44.0, 20.0, 708.0, 56.0, 0.44, 0.69, 90.82, 0.89, 0.49
+RandomForest, Bugginess classifier with cost sensitive with feature selection, 4, 46.2, 339, 50, false, true, true, 32.0, 6.0, 722.0, 68.0, 0.32, 0.84, 91.06, 0.92, 0.43
+IBk, Bugginess classifier with cost sensitive with feature selection, 4, 46.2, 339, 50, false, true, true, 70.0, 70.0, 658.0, 30.0, 0.7, 0.5, 87.92, 0.83, 0.51
+NaiveBayes, Bugginess classifier, 5, 63.0, 389, 65, false, false, false, 14.0, 7.0, 376.0, 51.0, 0.22, 0.67, 87.05, 0.89, 0.27
+RandomForest, Bugginess classifier, 5, 63.0, 389, 65, false, false, false, 38.0, 19.0, 364.0, 27.0, 0.58, 0.67, 89.73, 0.93, 0.56
+IBk, Bugginess classifier, 5, 63.0, 389, 65, false, false, false, 27.0, 29.0, 354.0, 38.0, 0.42, 0.48, 85.04, 0.69, 0.36
 NaiveBayes, Bugginess classifier with balancing techniques, 5, 63.0, 389, 65, SMOTE-sampling, false, false, 34.0, 14.0, 752.0, 96.0, 0.26, 0.71, 87.72, 0.88, 0.33
 RandomForest, Bugginess classifier with balancing techniques, 5, 63.0, 389, 65, SMOTE-sampling, false, false, 82.0, 52.0, 714.0, 48.0, 0.63, 0.61, 88.84, 0.93, 0.56
 IBk, Bugginess classifier with balancing techniques, 5, 63.0, 389, 65, SMOTE-sampling, false, false, 72.0, 84.0, 682.0, 58.0, 0.55, 0.46, 84.15, 0.74, 0.41
@@ -74,9 +86,12 @@ IBk, Bugginess classifier with balancing techniques with feature selection, 5, 6
 NaiveBayes, Bugginess classifier with balancing techniques with feature selection, 5, 63.0, 389, 65, OVER-sampling, true, false, 93.0, 30.0, 1119.0, 102.0, 0.48, 0.76, 90.18, 0.9, 0.53
 RandomForest, Bugginess classifier with balancing techniques with feature selection, 5, 63.0, 389, 65, OVER-sampling, true, false, 144.0, 132.0, 1017.0, 51.0, 0.74, 0.52, 86.38, 0.91, 0.53
 IBk, Bugginess classifier with balancing techniques with feature selection, 5, 63.0, 389, 65, OVER-sampling, true, false, 138.0, 123.0, 1026.0, 57.0, 0.71, 0.53, 86.61, 0.89, 0.53
-NaiveBayes, Bugginess classifier, 6, 81.2, 451, 41, , false, false, 9.0, 12.0, 410.0, 32.0, 0.22, 0.43, 90.5, 0.91, 0.25
-RandomForest, Bugginess classifier, 6, 81.2, 451, 41, , false, false, 21.0, 25.0, 397.0, 20.0, 0.51, 0.46, 90.28, 0.9, 0.43
-IBk, Bugginess classifier, 6, 81.2, 451, 41, , false, false, 20.0, 41.0, 381.0, 21.0, 0.49, 0.33, 86.61, 0.71, 0.32
+NaiveBayes, Bugginess classifier with cost sensitive with feature selection, 5, 63.0, 389, 65, false, true, true, 38.0, 4.0, 762.0, 92.0, 0.29, 0.9, 89.29, 0.9, 0.4
+RandomForest, Bugginess classifier with cost sensitive with feature selection, 5, 63.0, 389, 65, false, true, true, 28.0, 4.0, 762.0, 102.0, 0.22, 0.88, 88.17, 0.92, 0.31
+IBk, Bugginess classifier with cost sensitive with feature selection, 5, 63.0, 389, 65, false, true, true, 86.0, 52.0, 714.0, 44.0, 0.66, 0.62, 89.29, 0.88, 0.58
+NaiveBayes, Bugginess classifier, 6, 81.2, 451, 41, false, false, false, 9.0, 12.0, 410.0, 32.0, 0.22, 0.43, 90.5, 0.91, 0.25
+RandomForest, Bugginess classifier, 6, 81.2, 451, 41, false, false, false, 21.0, 25.0, 397.0, 20.0, 0.51, 0.46, 90.28, 0.9, 0.43
+IBk, Bugginess classifier, 6, 81.2, 451, 41, false, false, false, 20.0, 41.0, 381.0, 21.0, 0.49, 0.33, 86.61, 0.71, 0.32
 NaiveBayes, Bugginess classifier with balancing techniques, 6, 81.2, 451, 41, SMOTE-sampling, false, false, 22.0, 26.0, 818.0, 60.0, 0.27, 0.46, 90.71, 0.91, 0.29
 RandomForest, Bugginess classifier with balancing techniques, 6, 81.2, 451, 41, SMOTE-sampling, false, false, 56.0, 64.0, 780.0, 26.0, 0.68, 0.47, 90.28, 0.9, 0.5
 IBk, Bugginess classifier with balancing techniques, 6, 81.2, 451, 41, SMOTE-sampling, false, false, 44.0, 84.0, 760.0, 38.0, 0.54, 0.34, 86.83, 0.73, 0.35
@@ -89,3 +104,6 @@ IBk, Bugginess classifier with balancing techniques with feature selection, 6, 8
 NaiveBayes, Bugginess classifier with balancing techniques with feature selection, 6, 81.2, 451, 41, OVER-sampling, true, false, 75.0, 78.0, 1188.0, 48.0, 0.61, 0.49, 90.93, 0.91, 0.49
 RandomForest, Bugginess classifier with balancing techniques with feature selection, 6, 81.2, 451, 41, OVER-sampling, true, false, 78.0, 153.0, 1113.0, 45.0, 0.63, 0.34, 85.75, 0.9, 0.37
 IBk, Bugginess classifier with balancing techniques with feature selection, 6, 81.2, 451, 41, OVER-sampling, true, false, 78.0, 129.0, 1137.0, 45.0, 0.63, 0.38, 87.47, 0.83, 0.41
+NaiveBayes, Bugginess classifier with cost sensitive with feature selection, 6, 81.2, 451, 41, false, true, true, 28.0, 18.0, 826.0, 54.0, 0.34, 0.61, 92.22, 0.91, 0.4
+RandomForest, Bugginess classifier with cost sensitive with feature selection, 6, 81.2, 451, 41, false, true, true, 24.0, 14.0, 830.0, 58.0, 0.29, 0.63, 92.22, 0.9, 0.36
+IBk, Bugginess classifier with cost sensitive with feature selection, 6, 81.2, 451, 41, false, true, true, 50.0, 62.0, 782.0, 32.0, 0.61, 0.45, 89.85, 0.85, 0.46
