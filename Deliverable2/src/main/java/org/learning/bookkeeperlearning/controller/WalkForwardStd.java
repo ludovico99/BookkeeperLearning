@@ -6,8 +6,13 @@ import weka.classifiers.Evaluation;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class WalkForwardStd extends Validation {
+
+    private final Logger logger = Logger.getLogger("Standard walk forward log");
 
     public WalkForwardStd(DataSource training, DataSource testing) {
         super(training,testing,"Bugginess classifier");
@@ -18,12 +23,12 @@ public class WalkForwardStd extends Validation {
     public Evaluation buildModel(AbstractClassifier classifier ,Instances training,Instances testing,LearningModelEntity modelEntity) {
         try {
             classifier.buildClassifier(training);
-            Evaluation eval = new Evaluation(training);
+            Evaluation eval = new Evaluation(testing);
 
             eval.evaluateModel(classifier, testing);
             return eval;
         }catch (Exception e){
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"Error in walk forward evaluation",e);
         }
         return null;
     }

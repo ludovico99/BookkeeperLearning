@@ -28,6 +28,7 @@ public class LearningModelEntity {
 
     private String balancing = "";
     private boolean featureSelection = false;
+    private boolean costSensitive = false;
 
     @Override
     public String toString() {
@@ -77,28 +78,6 @@ public class LearningModelEntity {
 
     }
 
-    public List<Double> computeMeanValues(){
-        double meanAccuracy = 0;
-        double meanRecall = 0;
-        double meanPrecision = 0;
-        double meanRocAuc = 0;
-        double meanKappa = 0;
-        for (int i= 0;i< iterations;i++){
-            meanAccuracy = meanAccuracy + accuracy.get(i);
-            meanRecall = meanRecall + recall.get(i);
-            meanPrecision = meanPrecision + precision.get(i);
-            meanRocAuc = meanRocAuc + rocAuc.get(i);
-            meanKappa = meanKappa + kappa.get(i);
-        }
-        List<Double> result = new ArrayList<>();
-        result.add(meanAccuracy/iterations);
-        result.add(meanRecall/iterations);
-        result.add(meanPrecision/iterations);
-        result.add(meanRocAuc/iterations);
-        result.add(meanKappa/iterations);
-        return result;
-    }
-
     public String getBalancing() {
         return balancing;
     }
@@ -106,7 +85,6 @@ public class LearningModelEntity {
     public void setBalancing(String balancing) {
         this.balancing = balancing;
     }
-
 
     public int getIterations() {
         return iterations;
@@ -219,5 +197,13 @@ public class LearningModelEntity {
 
     public void addRocAuc(Double rocAuc) {
         this.rocAuc.add(rocAuc);
+    }
+
+    public boolean isCostSensitive() {
+        return costSensitive;
+    }
+
+    public void setCostSensitive(boolean costSensitive) {
+        this.costSensitive = costSensitive;
     }
 }

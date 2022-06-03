@@ -143,7 +143,7 @@ public abstract class DataSetController {
             logger.log(Level.INFO, "Totale commits con ticket ID: {0}", count2);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"Error in retrieving commit differences" ,e);
             GitController.getGit().close();
         }
     }

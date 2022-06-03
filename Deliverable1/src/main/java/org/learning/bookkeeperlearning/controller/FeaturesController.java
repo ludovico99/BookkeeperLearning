@@ -1,5 +1,6 @@
 package org.learning.bookkeeperlearning.controller;
 
+
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.diff.Edit;
@@ -19,10 +20,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FeaturesController {
 
     private static final String DATEFORMAT = "yyyy-MM-dd";
+
+    private final Logger logger = Logger.getLogger("Features controller log");
 
 
     private void  releaseInitialization (ReleaseEntity commitVersion, ReleaseEntity prevVersion, Date dateRelease) {
@@ -46,7 +51,7 @@ public class FeaturesController {
                     commitVersion.addJavaFile(newClass);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE,"Error in parsing dates" ,e);
             }
         }
     }
@@ -184,7 +189,7 @@ public class FeaturesController {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"Error in retrieving file header" ,e);
             GitController.getGit().close();
         }
     }

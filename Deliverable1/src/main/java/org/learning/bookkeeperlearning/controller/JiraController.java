@@ -68,7 +68,7 @@ public class JiraController {
             Logger.getAnonymousLogger().log(Level.INFO, "numero di tickets: {0}", result.size());
         }catch(Exception e){
             JsonParsingException exception= new JsonParsingException("Errore nel retrieve dei tickets",e);
-            exception.printStackTrace();
+            logger.log(Level.SEVERE,"Error in date parsing" ,exception);
         }
         return result;
     }
@@ -99,7 +99,7 @@ public class JiraController {
 
         }catch (IOException e){
             JsonParsingException exception= new JsonParsingException("Errore nel retrieve delle version",e);
-            exception.printStackTrace();
+            logger.log(Level.SEVERE,"Error in reading JSON Array from URL" ,exception);
         }
         return list;
     }

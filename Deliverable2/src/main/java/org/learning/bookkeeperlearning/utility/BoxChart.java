@@ -33,11 +33,9 @@ public  class BoxChart extends ApplicationFrame {
         chart = boxChart;
 
         CategoryPlot plot =  boxChart.getCategoryPlot();
-        plot.getDomainAxis().setMaximumCategoryLabelLines(2);
+        plot.getDomainAxis().setMaximumCategoryLabelLines(5);
 
         plot.setRangeGridlinesVisible(true);
-
-
 
         ChartPanel chartPanel = new ChartPanel( boxChart );
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -56,15 +54,15 @@ public  class BoxChart extends ApplicationFrame {
                 for (int i = 0; i < iterations; i++) {
                     if (metricsEnum.equals(MetricsEnum.ACCURACY)) values.add(learningModelEntity.getAccuracy().get(i));
                     else if (metricsEnum.equals(MetricsEnum.RECALL)) values.add(learningModelEntity.getRecall().get(i));
-                    else if (metricsEnum.equals(MetricsEnum.PRECISION))
-                        values.add(learningModelEntity.getPrecision().get(i));
+                    else if (metricsEnum.equals(MetricsEnum.PRECISION)) values.add(learningModelEntity.getPrecision().get(i));
                     else if (metricsEnum.equals(MetricsEnum.KAPPA)) values.add(learningModelEntity.getKappa().get(i));
                     else values.add(learningModelEntity.getRocAuc().get(i));
                 }
 
                 BoxAndWhiskerItem item = BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(values);
                 String columnKey = "Walk Forward " + learningModelEntity.getBalancing();
-                if (learningModelEntity.isFeatureSelection()) columnKey = columnKey + " fs";
+                if (learningModelEntity.isFeatureSelection()) columnKey += " with feature selection";
+                if(learningModelEntity.isCostSensitive()) columnKey +=  " with cost sensitive";
                 dataset.add(item, classifier,columnKey);
         }
             return dataset;

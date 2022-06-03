@@ -1,9 +1,6 @@
 package org.learning.bookkeeperlearning;
 
-import org.learning.bookkeeperlearning.controller.BalancingDecorator;
-import org.learning.bookkeeperlearning.controller.FeatureSelectionDecorator;
-import org.learning.bookkeeperlearning.controller.Validation;
-import org.learning.bookkeeperlearning.controller.WalkForwardStd;
+import org.learning.bookkeeperlearning.controller.*;
 import org.learning.bookkeeperlearning.entity.LearningModelEntity;
 import org.learning.bookkeeperlearning.utility.BalancingEnum;
 import org.learning.bookkeeperlearning.utility.CsvOutput;
@@ -36,40 +33,46 @@ public class WekaLearning {
         DataSource source1 = new DataSource(".\\Deliverable2\\src\\main\\resources\\BookkeeperClassBugginessTraining.arff");
         DataSource source2 = new DataSource(".\\Deliverable2\\src\\main\\resources\\BookkeeperClassBugginessTesting.arff");
 
-        Validation walkForwardStd = new WalkForwardStd(source1,source2);
+        Validation val = new WalkForwardStd(source1,source2);
 
-        List<LearningModelEntity> res = new ArrayList<>(walkForwardStd.validation());
+        List<LearningModelEntity> res = new ArrayList<>(val.validation());
 
-        Validation walkForwardWithBalancing = new BalancingDecorator(new WalkForwardStd(source1,source2), BalancingEnum.SMOTE_SAMPLING);
+        val = new FeatureSelectionDecorator(new WalkForwardStd(source1,source2));
 
-        res.addAll(walkForwardWithBalancing.validation());
+        res.addAll(val.validation());
 
-        Validation walkForwardWithBalancingAndFeatureSelection = new FeatureSelectionDecorator(new BalancingDecorator(new WalkForwardStd(source1,source2),BalancingEnum.SMOTE_SAMPLING));
+        val = new BalancingDecorator(new WalkForwardStd(source1,source2), BalancingEnum.SMOTE_SAMPLING);
 
-        res.addAll(walkForwardWithBalancingAndFeatureSelection.validation());
+        res.addAll(val.validation());
 
-        Validation walkForwardWithOverAndFeatureSelection = new FeatureSelectionDecorator(new BalancingDecorator(new WalkForwardStd(source1,source2),BalancingEnum.UNDER_SAMPLING));
+        val = new FeatureSelectionDecorator(new BalancingDecorator(new WalkForwardStd(source1,source2),BalancingEnum.SMOTE_SAMPLING));
 
-        res.addAll(walkForwardWithOverAndFeatureSelection.validation());
+        res.addAll(val.validation());
 
-        Validation walkForwardWithUnderAndFeatureSelection = new FeatureSelectionDecorator(new BalancingDecorator(new WalkForwardStd(source1,source2),BalancingEnum.OVER_SAMPLING));
+        val = new FeatureSelectionDecorator(new BalancingDecorator(new WalkForwardStd(source1,source2),BalancingEnum.UNDER_SAMPLING));
 
-        res.addAll(walkForwardWithUnderAndFeatureSelection.validation());
+        res.addAll(val.validation());
 
+        val = new FeatureSelectionDecorator(new BalancingDecorator(new WalkForwardStd(source1,source2),BalancingEnum.OVER_SAMPLING));
+
+        res.addAll(val.validation());
+
+        val = new FeatureSelectionDecorator(new CostSensitiveDecorator(new WalkForwardStd(source1,source2)));
+
+        res.addAll(val.validation());
 
         CsvOutput.addLines(res,source1.getDataSet().size());
         CsvOutput.getWriter().close();
 
+        val.saveChart(val.showChart(res, MetricsEnum.ACCURACY),"ACCURACY_ALL");
 
-        walkForwardWithBalancingAndFeatureSelection.saveChart(walkForwardWithBalancingAndFeatureSelection.showChart(res, MetricsEnum.ACCURACY),"ACCURACY_ALL");
+        val.saveChart(val.showChart(res, MetricsEnum.ROCAUC),"ROC_All");
 
-        walkForwardWithBalancingAndFeatureSelection.saveChart(walkForwardWithBalancingAndFeatureSelection.showChart(res, MetricsEnum.ROCAUC),"ROC_All");
+        val.saveChart(val.showChart(res, MetricsEnum.KAPPA),"KAPPA_All");
 
-        walkForwardWithBalancingAndFeatureSelection.saveChart(walkForwardWithBalancingAndFeatureSelection.showChart(res, MetricsEnum.KAPPA),"KAPPA_All");
+        val.saveChart(val.showChart(res, MetricsEnum.PRECISION),"PRECISION_All");
 
-        walkForwardWithBalancingAndFeatureSelection.saveChart(walkForwardWithBalancingAndFeatureSelection.showChart(res, MetricsEnum.PRECISION),"PRECISION_All");
-
-        walkForwardWithBalancingAndFeatureSelection.saveChart(walkForwardWithBalancingAndFeatureSelection.showChart(res, MetricsEnum.RECALL),"RECALL_All");
+        val.saveChart(val.showChart(res, MetricsEnum.RECALL),"RECALL_All");
 
 
 

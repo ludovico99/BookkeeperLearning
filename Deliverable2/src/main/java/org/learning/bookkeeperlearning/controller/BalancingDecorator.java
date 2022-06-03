@@ -10,10 +10,15 @@ import weka.filters.supervised.instance.Resample;
 import weka.filters.supervised.instance.SMOTE;
 import weka.filters.supervised.instance.SpreadSubsample;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class BalancingDecorator extends Decorator {
 
     private final BalancingEnum value;
+
+    private final Logger logger = Logger.getLogger("Balancing log");
 
     public BalancingDecorator(Validation val, BalancingEnum value) {
         super(val.dataSetName + " with balancing techniques",val);
@@ -58,8 +63,8 @@ public class BalancingDecorator extends Decorator {
     @Override
     public Evaluation buildModel(AbstractClassifier classifier, Instances training, Instances testing,LearningModelEntity modelEntity){
         try {
+
             FilteredClassifier fc = new FilteredClassifier();
-            fc.setClassifier(classifier);
 
             if (value.equals(BalancingEnum.SMOTE_SAMPLING)) {
                 initSmote(fc, training);
@@ -73,16 +78,19 @@ public class BalancingDecorator extends Decorator {
 
             }
 
+            fc.setClassifier(classifier);
+
             fc.buildClassifier(training);
 
-            Evaluation eval = this.getValidation().buildModel(fc,training,testing,modelEntity);
+            Evaluation eval = this.getValidation().buildModel(fc, training, testing, modelEntity);
 
-            eval.evaluateModel(fc, testing);
+            if(eval != null) eval.evaluateModel(fc, testing);
+
 
             return eval;
 
         }catch (Exception e){
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"Error in walk balancing evaluation",e);
         }
 
         return null;

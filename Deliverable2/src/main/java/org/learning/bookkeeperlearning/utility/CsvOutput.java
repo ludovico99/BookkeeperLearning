@@ -5,13 +5,14 @@ import org.learning.bookkeeperlearning.entity.LearningModelEntity;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CsvOutput {
 
     private static final  String FILE_NAME=  ".\\Deliverable2\\src\\main\\resources\\BookkeeperWalkForward.csv";
     private static FileWriter writer;
-    //StormWalkForward.csv
-    //BookkeeperWalkForward.csv
+    private static final Logger logger = Logger.getLogger("CSV output log");
 
     static {
         try {
@@ -91,13 +92,14 @@ public class CsvOutput {
                     writer.append(String.valueOf(line.getTestings().get(i).attributeStats(numAttr - 1).nominalCounts[1]));
                     writer.append(", ");
 
-                    writer.append(line.getBalancing());
+                    if (line.getBalancing().equals("")) writer.append(String.valueOf(false));
+                    else writer.append(line.getBalancing());
                     writer.append(", ");
 
                     writer.append(String.valueOf(line.isFeatureSelection()));
                     writer.append(", ");
 
-                    writer.append(String.valueOf(false));
+                    writer.append(String.valueOf(line.isCostSensitive()));
                     writer.append(", ");
 
                     writer.append(String.valueOf(line.getTp().get(i)));
@@ -126,13 +128,13 @@ public class CsvOutput {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"Error in appending something" ,e);
         } finally {
             try {
                 writer.flush();
 
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE,"Error in flushing the stream" ,e);
             }
         }
     }

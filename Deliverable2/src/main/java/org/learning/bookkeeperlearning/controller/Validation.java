@@ -19,12 +19,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class Validation {
 
     private static final String FILE_NAME = ".\\Deliverable2\\src\\main\\resources\\Bookkeeper";
-    //Bookkeeper
-    //Storm
+    private final Logger logger = Logger.getLogger("Validation controller log");
+
 
     protected List<AbstractClassifier> classifiers;
     protected final String dataSetName ;
@@ -46,6 +48,8 @@ public abstract class Validation {
 
         this.trainings = new ArrayList<>();
         this.testings = new ArrayList<>();
+
+        this.classifiers = new ArrayList<>();
 
         initClassifiers();
 
@@ -89,6 +93,7 @@ public abstract class Validation {
     }
 
     public List<LearningModelEntity> validation() {
+
         createInstances();
 
         List<LearningModelEntity> results = initLearningModelEntities();
@@ -98,25 +103,28 @@ public abstract class Validation {
 
                 LearningModelEntity learningModelEntity = results.get(j);
 
-                Evaluation eval = buildModel(classifiers.get(j),trainings.get(i),testings.get(i),learningModelEntity);
-
-                double recall = Math.round(eval.recall(1) * 100.0) / 100.0;
-                double precision = Math.round(eval.precision(1) * 100.0) / 100.0;
-                double accuracy = Math.round(eval.pctCorrect() * 100.0) / 100.0;
-                double auc = Math.round(eval.areaUnderROC(1) * 100.0) / 100.0;
-                double kappa = Math.round(eval.kappa() * 100.0) / 100.0;
+                Evaluation eval = this.buildModel(classifiers.get(j),trainings.get(i),testings.get(i),learningModelEntity);
 
 
-                learningModelEntity.addTp(eval.numTruePositives(1));
-                learningModelEntity.addTn(eval.numTrueNegatives(1));
-                learningModelEntity.addFp(eval.numFalsePositives(1));
-                learningModelEntity.addFn(eval.numFalseNegatives(1));
+                if (eval != null) {
+                    double recall = Math.round(eval.recall(1) * 100.0) / 100.0;
+                    double precision = Math.round(eval.precision(1) * 100.0) / 100.0;
+                    double accuracy = Math.round(eval.pctCorrect() * 100.0) / 100.0;
+                    double auc = Math.round(eval.areaUnderROC(1) * 100.0) / 100.0;
+                    double kappa = Math.round(eval.kappa() * 100.0) / 100.0;
 
-                learningModelEntity.addAccuracy(accuracy);
-                learningModelEntity.addRecall(recall);
-                learningModelEntity.addPrecision(precision);
-                learningModelEntity.addKappa(kappa);
-                learningModelEntity.addRocAuc(auc);
+
+                    learningModelEntity.addTp(eval.numTruePositives(1));
+                    learningModelEntity.addTn(eval.numTrueNegatives(1));
+                    learningModelEntity.addFp(eval.numFalsePositives(1));
+                    learningModelEntity.addFn(eval.numFalseNegatives(1));
+
+                    learningModelEntity.addAccuracy(accuracy);
+                    learningModelEntity.addRecall(recall);
+                    learningModelEntity.addPrecision(precision);
+                    learningModelEntity.addKappa(kappa);
+                    learningModelEntity.addRocAuc(auc);
+                }
             }
         }
         return results;
@@ -126,9 +134,8 @@ public abstract class Validation {
 
         try {
 
-
             iterations = trainingSet.getDataSet(0).numClasses();
-            int numAttr = 1;
+            int numAttr;
             Instances dataSet1 = trainingSet.getDataSet(0);
             Instances dataSet2 = testingSet.getDataSet(0);
 
@@ -161,7 +168,7 @@ public abstract class Validation {
                 addTraining(training);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"Error in retrieving data set" ,e);
         }
 
     }
@@ -178,12 +185,14 @@ public abstract class Validation {
     }
 
     public void initClassifiers() {
-        classifiers = new ArrayList<>();
 
-        classifiers.add(new NaiveBayes());
-        classifiers.add(new RandomForest());
-        classifiers.add(new IBk());
+        this.addClassifier(new NaiveBayes());
+        this.addClassifier(new RandomForest());
+        this.addClassifier(new IBk());
+
     }
+
+
     public List<LearningModelEntity> initLearningModelEntities () {
         List<LearningModelEntity> results = new ArrayList<>();
         for (AbstractClassifier classifier : classifiers) {
@@ -200,7 +209,7 @@ public abstract class Validation {
         return results;
     }
 
-    public void addClassifiers(AbstractClassifier classifier){
+    public void addClassifier(AbstractClassifier classifier){
         classifiers.add(classifier);
     }
 
@@ -210,10 +219,10 @@ public abstract class Validation {
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
             ChartUtilities.saveChartAsJPEG(boxChart, chart.getChart(), dim.width, dim.height);
         } catch(IOException e){
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"Error in saving box chart as Jpeg" ,e);
         }
     }
 
-    public abstract Evaluation buildModel(AbstractClassifier classifier, Instances trainings, Instances testings,LearningModelEntity modelEntity) ;
+    public abstract Evaluation buildModel(AbstractClassifier classifier, Instances training, Instances testing, LearningModelEntity modelEntity);
 }
 
