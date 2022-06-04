@@ -1,8 +1,10 @@
 package org.learning.bookkeeperlearning.utility;
 
 public enum FeatureSelectionEnum {
-    BACKWARDS_SEARCH,
-    FORWARDS_SEARCH,
+    FILTER_BACKWARDS_SEARCH,
+    WRAPPER_FORWARDS_SEARCH,
+    FILTER_FORWARDS_SEARCH,
     BEST_FIRST,
     RANKER
 }
+

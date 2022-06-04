@@ -24,7 +24,7 @@ public class FeatureSelectionDecorator extends Decorator {
     }
 
     private void initBackwardsSearch(AttributeSelection filter){
-        ASEvaluation subsetEval = new CfsSubsetEval();
+        CfsSubsetEval subsetEval = new CfsSubsetEval();
         GreedyStepwise search = new GreedyStepwise();
 
         //set the algorithm to search backward
@@ -38,12 +38,12 @@ public class FeatureSelectionDecorator extends Decorator {
 
     }
 
-    private void initForwardsSearch(AttributeSelection filter){
-        ASEvaluation subsetEval = new CfsSubsetEval();
+    private void initWrapperForwardsSearch(AbstractClassifier classifier, AttributeSelection filter){
+        ClassifierSubsetEval subsetEval = new ClassifierSubsetEval();
+
+        subsetEval.setClassifier(classifier); //<-- WRAPPER
 
         GreedyStepwise search = new GreedyStepwise();
-
-        search.setSearchBackwards(false);
 
         filter.setEvaluator(subsetEval);
 
@@ -51,8 +51,20 @@ public class FeatureSelectionDecorator extends Decorator {
 
     }
 
+    private void initForwardsSearch(AttributeSelection filter){
+        CfsSubsetEval subsetEval = new CfsSubsetEval();
+
+        GreedyStepwise search = new GreedyStepwise();
+
+        filter.setEvaluator(subsetEval);
+
+        filter.setSearch(search);
+
+    }
+
+
     private void initBestFirst (AttributeSelection filter){
-        ASEvaluation subsetEval = new CfsSubsetEval();
+        CfsSubsetEval subsetEval = new CfsSubsetEval();
 
         BestFirst search= new BestFirst();
 
@@ -63,7 +75,7 @@ public class FeatureSelectionDecorator extends Decorator {
     }
 
     private void initCorrEvaluator (AttributeSelection filter){
-        ASEvaluation correlationAttributeEval = new CorrelationAttributeEval();
+        CorrelationAttributeEval correlationAttributeEval = new CorrelationAttributeEval();
 
         Ranker search= new Ranker();
 
@@ -83,13 +95,16 @@ public class FeatureSelectionDecorator extends Decorator {
             //create evaluator and search algorithm objects
 
 
-            if (value.equals(FeatureSelectionEnum.BACKWARDS_SEARCH)) {
+            if (value.equals(FeatureSelectionEnum.FILTER_BACKWARDS_SEARCH)) {
                 initBackwardsSearch(filter);
                 modelEntity.setTypeFeatureSelection("Backwards search");
-            } else if (value.equals(FeatureSelectionEnum.FORWARDS_SEARCH)) {
+            } else if (value.equals(FeatureSelectionEnum.WRAPPER_FORWARDS_SEARCH)) {
+                initWrapperForwardsSearch(classifier, filter);
+                modelEntity.setTypeFeatureSelection("WRAPPER Forwards search");
+            }else if (value.equals(FeatureSelectionEnum.FILTER_FORWARDS_SEARCH)){
                 initForwardsSearch(filter);
                 modelEntity.setTypeFeatureSelection("Forwards search");
-            } else if (value.equals(FeatureSelectionEnum.BEST_FIRST)) {
+            }else if (value.equals(FeatureSelectionEnum.BEST_FIRST)) {
                 initBestFirst(filter);
                 modelEntity.setTypeFeatureSelection("Best first");
             } else{
