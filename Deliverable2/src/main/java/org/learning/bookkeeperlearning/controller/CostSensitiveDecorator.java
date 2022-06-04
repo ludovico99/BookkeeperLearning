@@ -36,8 +36,6 @@ public class CostSensitiveDecorator extends Decorator{
             costSensitiveClassifier.setClassifier(classifier);
 
             costSensitiveClassifier.setCostMatrix(createCostMatrix());
-            costSensitiveClassifier.buildClassifier(training);
-
 
             Evaluation eval = this.getValidation().buildModel(costSensitiveClassifier, training, testing, modelEntity);
 

@@ -80,8 +80,6 @@ public class BalancingDecorator extends Decorator {
 
             fc.setClassifier(classifier);
 
-            fc.buildClassifier(training);
-
             Evaluation eval = this.getValidation().buildModel(fc, training, testing, modelEntity);
 
             if(eval != null) eval.evaluateModel(fc, testing);
