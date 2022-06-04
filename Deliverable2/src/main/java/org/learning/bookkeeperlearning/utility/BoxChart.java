@@ -33,7 +33,7 @@ public  class BoxChart extends ApplicationFrame {
         chart = boxChart;
 
         CategoryPlot plot =  boxChart.getCategoryPlot();
-        plot.getDomainAxis().setMaximumCategoryLabelLines(5);
+        plot.getDomainAxis().setMaximumCategoryLabelLines(8);
 
         plot.setRangeGridlinesVisible(true);
 
@@ -61,7 +61,7 @@ public  class BoxChart extends ApplicationFrame {
 
                 BoxAndWhiskerItem item = BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(values);
                 String columnKey = "Walk Forward " + learningModelEntity.getBalancing();
-                if (learningModelEntity.isFeatureSelection()) columnKey += " with feature selection";
+                if (learningModelEntity.isFeatureSelection()) columnKey += " " + learningModelEntity.getTypeFeatureSelection();
                 if(learningModelEntity.isCostSensitive()) columnKey +=  " with cost sensitive";
                 dataset.add(item, classifier,columnKey);
         }

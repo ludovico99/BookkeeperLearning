@@ -96,7 +96,8 @@ public class CsvOutput {
                     else writer.append(line.getBalancing());
                     writer.append(", ");
 
-                    writer.append(String.valueOf(line.isFeatureSelection()));
+                    if (line.isFeatureSelection()) writer.append(line.getTypeFeatureSelection());
+                    else writer.append(String.valueOf(line.isFeatureSelection()));
                     writer.append(", ");
 
                     writer.append(String.valueOf(line.isCostSensitive()));

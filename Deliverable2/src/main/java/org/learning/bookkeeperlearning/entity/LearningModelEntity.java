@@ -28,6 +28,7 @@ public class LearningModelEntity {
 
     private String balancing = "";
     private boolean featureSelection = false;
+    private String typeFeatureSelection = "";
     private boolean costSensitive = false;
 
     @Override
@@ -35,8 +36,8 @@ public class LearningModelEntity {
         return "LearningModelEntity{" +
                 "classifier='" + classifier + '\'' +
                 ", dataSetName='" + dataSetName + '\'' +
-                ", training=" + trainings +
-                ", testing=" + testings +
+                ", trainings=" + trainings +
+                ", testings=" + testings +
                 ", iterations=" + iterations +
                 ", tp=" + tp +
                 ", tn=" + tn +
@@ -49,7 +50,17 @@ public class LearningModelEntity {
                 ", rocAuc=" + rocAuc +
                 ", balancing='" + balancing + '\'' +
                 ", featureSelection=" + featureSelection +
+                ", typeFeatureSelection='" + typeFeatureSelection + '\'' +
+                ", costSensitive=" + costSensitive +
                 '}';
+    }
+
+    public String getTypeFeatureSelection() {
+        return typeFeatureSelection;
+    }
+
+    public void setTypeFeatureSelection(String typeFeatureSelection) {
+        this.typeFeatureSelection = typeFeatureSelection;
     }
 
     public void setFeatureSelection(boolean featureSelection) {

@@ -1,8 +1,8 @@
 package org.learning.bookkeeperlearning.controller;
 
 import org.learning.bookkeeperlearning.entity.LearningModelEntity;
-import weka.attributeSelection.CfsSubsetEval;
-import weka.attributeSelection.GreedyStepwise;
+import org.learning.bookkeeperlearning.utility.FeatureSelectionEnum;
+import weka.attributeSelection.*;
 import weka.classifiers.AbstractClassifier;
 import weka.classifiers.Evaluation;
 import weka.core.Instances;
@@ -16,9 +16,61 @@ import java.util.logging.Logger;
 public class FeatureSelectionDecorator extends Decorator {
 
     private final Logger logger = Logger.getLogger("Feature selection log");
+    private final FeatureSelectionEnum value;
 
-    public FeatureSelectionDecorator(Validation val) {
+    public FeatureSelectionDecorator(Validation val,FeatureSelectionEnum value) {
         super(val.validationEntity.getDataSetName() + " with feature selection", val);
+        this.value = value;
+    }
+
+    private void initBackwardsSearch(AttributeSelection filter){
+        ASEvaluation subsetEval = new CfsSubsetEval();
+        GreedyStepwise search = new GreedyStepwise();
+
+        //set the algorithm to search backward
+        search.setSearchBackwards(true);
+
+        //set the filter to use the evaluator and search algorithm
+        filter.setEvaluator(subsetEval);
+
+        filter.setSearch(search);
+        //specify the dataset
+
+    }
+
+    private void initForwardsSearch(AttributeSelection filter){
+        ASEvaluation subsetEval = new CfsSubsetEval();
+
+        GreedyStepwise search = new GreedyStepwise();
+
+        search.setSearchBackwards(false);
+
+        filter.setEvaluator(subsetEval);
+
+        filter.setSearch(search);
+
+    }
+
+    private void initBestFirst (AttributeSelection filter){
+        ASEvaluation subsetEval = new CfsSubsetEval();
+
+        BestFirst search= new BestFirst();
+
+        filter.setEvaluator(subsetEval);
+
+        filter.setSearch(search);
+
+    }
+
+    private void initCorrEvaluator (AttributeSelection filter){
+        ASEvaluation correlationAttributeEval = new CorrelationAttributeEval();
+
+        Ranker search= new Ranker();
+
+        //set the filter to use the evaluator and search algorithm
+        filter.setEvaluator(correlationAttributeEval);
+
+        filter.setSearch(search);
     }
 
 
@@ -27,19 +79,24 @@ public class FeatureSelectionDecorator extends Decorator {
         try {
             modelEntity.setFeatureSelection(true);
 
-
             AttributeSelection filter = new AttributeSelection();
             //create evaluator and search algorithm objects
-            CfsSubsetEval subsetEval = new CfsSubsetEval();
-            GreedyStepwise search = new GreedyStepwise();
 
-            //set the algorithm to search backward
-            search.setSearchBackwards(true);
-            //set the filter to use the evaluator and search algorithm
-            filter.setEvaluator(subsetEval);
 
-            filter.setSearch(search);
-            //specify the dataset
+            if (value.equals(FeatureSelectionEnum.BACKWARDS_SEARCH)) {
+                initBackwardsSearch(filter);
+                modelEntity.setTypeFeatureSelection("Backwards search");
+            } else if (value.equals(FeatureSelectionEnum.FORWARDS_SEARCH)) {
+                initForwardsSearch(filter);
+                modelEntity.setTypeFeatureSelection("Forwards search");
+            } else if (value.equals(FeatureSelectionEnum.BEST_FIRST)) {
+                initBestFirst(filter);
+                modelEntity.setTypeFeatureSelection("Best first");
+            } else{
+                initCorrEvaluator(filter);
+                modelEntity.setTypeFeatureSelection("Ranker");
+            }
+
 
             filter.setInputFormat(training);
 
