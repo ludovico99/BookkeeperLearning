@@ -20,11 +20,13 @@ public class WekaLearning {
          * Il testing set utilizza p pari alla media su tutte le release
          *
          * 1.1: Applico walk forward standard, senza "decorazioni" aggiuntive.
-         * 1.2: Applico walk forward con SMOTE SAMPLING.
-         * 1.3: Applico walk forward con SMOTE SAMPLING e feature selection.
-         * 1.4: Applico walk forward con UNDER SAMPLING e feature selection.
-         * 1.5: Applico walk forward con OVER SAMPLING e feature selection.
-         * 1.6: Realizzo un box chart categorico basato sulla metrica di accuratezza.
+         * 1.2: Applico walk forward con feature selection.
+         * 1.3: Applico walk forward con SMOTE SAMPLING.
+         * 1.4: Applico walk forward con SMOTE SAMPLING e feature selection.
+         * 1.5: Applico walk forward con UNDER SAMPLING e feature selection.
+         * 1.6: Applico walk forward con OVER SAMPLING e feature selection.
+         * 1.7: Applico walk forward con OVER SAMPLING e miss classifications cost.
+         * 1.8: Realizzo un box chart categorico basato sulla metrica di accuratezza.
          *
          *
          * */
