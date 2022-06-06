@@ -63,8 +63,8 @@ public class Utilities {
 
     public static Boolean isAJavaFileExcludeTests (DiffEntry diff) {
         String javaSuffix = ".java";
-        String[] newName = diff.getNewPath().split("/");
-        if (newName[newName.length - 1].contains("test") || newName[newName.length - 1].contains("Test")) return false;
+        String name = diff.getNewPath();
+        if (name.contains("test")) return false;
 
         return diff.getOldPath().endsWith(javaSuffix) || diff.getNewPath().endsWith(javaSuffix);
     }

@@ -19,7 +19,7 @@ public class JavaFileEntity {
     private double avgChgSetSize;
     private double age;
     private double weightedAge;
-    private List<String> authors;
+    private final List<String> authors;
     private String bugginess = "no";
 
         public JavaFileEntity(String fileName, String newVersion, int newSize, double age, List<String> newAuthors)
