@@ -67,6 +67,7 @@ public class Utilities {
         if (name.contains("test")) return false;
 
         return diff.getOldPath().endsWith(javaSuffix) || diff.getNewPath().endsWith(javaSuffix);
+
     }
 
 

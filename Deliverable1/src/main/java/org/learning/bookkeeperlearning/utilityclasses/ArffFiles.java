@@ -52,13 +52,11 @@ public class ArffFiles {
             String versionConsidered;
             List<String> aux = new ArrayList<>();
             List<ReleaseEntity> versionsToBeConsidered =releaseEntityList.subList(0,releaseEntityList.size()/2+1);
-            int rowsToBeConsidered =0;
             writer.append("@relation Class-Bugginess-DataSet\n");
             writer.append("@attribute version {");
             for (ReleaseEntity release: versionsToBeConsidered) {
                 versionConsidered = release.getVersion();
                 writer.append(versionConsidered);
-                rowsToBeConsidered = rowsToBeConsidered + release.getJavaFiles().size();
                 writer.append(',');
             }
             writer.append("}\n");
