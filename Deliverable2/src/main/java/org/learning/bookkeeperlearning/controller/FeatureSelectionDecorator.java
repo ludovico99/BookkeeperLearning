@@ -51,6 +51,20 @@ public class FeatureSelectionDecorator extends Decorator {
 
     }
 
+    private void initWrapperBackwardsSearch(AbstractClassifier classifier, AttributeSelection filter){
+        ClassifierSubsetEval subsetEval = new ClassifierSubsetEval();
+
+        subsetEval.setClassifier(classifier); //<-- WRAPPER
+
+        GreedyStepwise search = new GreedyStepwise();
+        search.setSearchBackwards(true);
+
+        filter.setEvaluator(subsetEval);
+
+        filter.setSearch(search);
+
+    }
+
     private void initForwardsSearch(AttributeSelection filter){
         CfsSubsetEval subsetEval = new CfsSubsetEval();
 
@@ -107,6 +121,9 @@ public class FeatureSelectionDecorator extends Decorator {
             }else if (value.equals(FeatureSelectionEnum.BEST_FIRST)) {
                 initBestFirst(filter);
                 modelEntity.setTypeFeatureSelection("Best first");
+            } else if(value.equals(FeatureSelectionEnum.WRAPPER_BACKWARDS_SEARCH)){
+              initWrapperBackwardsSearch(classifier,filter);
+              modelEntity.setTypeFeatureSelection("WRAPPER Backwards search");
             } else{
                 initCorrEvaluator(filter);
                 modelEntity.setTypeFeatureSelection("Ranker");

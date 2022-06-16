@@ -22,14 +22,15 @@ public class WekaLearning {
          * Non provo tutte le combinazioni di feature selection, balancing e cost sesnsitive.
          *
          * 1.1: Applico walk forward standard, senza "decorazioni" aggiuntive.
-         * 1.2: Applico walk forward con forward search + Wrapper.
-         * 1.4: Applico walk forward con forward search.
+         * 1.2: Applico walk forward con best first.
+         * 1.4: Applico walk forward con forward search + Wrapper.
          * 1.5: Applico walk forward con SMOTE SAMPLING.
          * 1.6: Applico walk forward con SMOTE SAMPLING e feature selection (BEST_FIRST).
          * 1.7: Applico walk forward con UNDER SAMPLING e feature selection (BEST_FIRST).
          * 1.8: Applico walk forward con OVER SAMPLING e feature selection (BEST_FIRST).
-         * 1.9: Applico walk forward con feature selection (BEST FIRST) e miss classifications cost.
-         * 1.10: Realizzo un box chart categorico basato sulla metrica di accuratezza.
+         * 1.9: Applico walk forward con miss classifications cost.
+         * 1.10: Applico walk forward con feature selection (BEST FIRST) e miss classifications cost.
+         * 1.11: Realizzo un box chart categorico basato sulla metrica di accuratezza.
          *
          *
          * */
@@ -42,12 +43,15 @@ public class WekaLearning {
 
         List<LearningModelEntity> res = new ArrayList<>(val.validation());
 
-        val = new FeatureSelectionDecorator(new WalkForwardStd(source1,source2), FeatureSelectionEnum.FILTER_FORWARDS_SEARCH);
+        val = new FeatureSelectionDecorator(new WalkForwardStd(source1,source2), FeatureSelectionEnum.BEST_FIRST);
 
         res.addAll(val.validation());
 
-
         val = new FeatureSelectionDecorator(new WalkForwardStd(source1,source2), FeatureSelectionEnum.WRAPPER_FORWARDS_SEARCH);
+
+        res.addAll(val.validation());
+
+        val = new FeatureSelectionDecorator(new WalkForwardStd(source1,source2), FeatureSelectionEnum.WRAPPER_BACKWARDS_SEARCH);
 
         res.addAll(val.validation());
 
@@ -67,6 +71,9 @@ public class WekaLearning {
 
         res.addAll(val.validation());
 
+        val = new CostSensitiveDecorator(new WalkForwardStd(source1,source2));
+        res.addAll(val.validation());
+
         val = new FeatureSelectionDecorator(new CostSensitiveDecorator(new WalkForwardStd(source1,source2)),FeatureSelectionEnum.BEST_FIRST);
 
         res.addAll(val.validation());
@@ -74,15 +81,13 @@ public class WekaLearning {
         CsvOutput.addLines(res,source1.getDataSet().size());
         CsvOutput.getWriter().close();
 
-        val.saveChart(val.showChart(res, MetricsEnum.ACCURACY),"ACCURACY_ALL");
+        val.showChart(res, MetricsEnum.ACCURACY);
+        val.showChart(res, MetricsEnum.RECALL);
+        val.showChart(res, MetricsEnum.PRECISION);
+        val.showChart(res, MetricsEnum.ROCAUC);
+        val.showChart(res, MetricsEnum.KAPPA);
 
-        val.saveChart(val.showChart(res, MetricsEnum.ROCAUC),"ROC_All");
 
-        val.saveChart(val.showChart(res, MetricsEnum.KAPPA),"KAPPA_All");
-
-        val.saveChart(val.showChart(res, MetricsEnum.PRECISION),"PRECISION_All");
-
-        val.saveChart(val.showChart(res, MetricsEnum.RECALL),"RECALL_All");
 
     }
 

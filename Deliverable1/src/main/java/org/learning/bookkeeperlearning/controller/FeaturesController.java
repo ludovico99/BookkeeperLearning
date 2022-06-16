@@ -141,7 +141,7 @@ public class FeaturesController {
             javaFile.addLocAdded(newInsert);
             javaFile.addChurn(newInsert - newDelete);
             javaFile.addChgSetSize(dfsSize - 1);
-            javaFile.setWeightedAge(javaFile.getAge() * (newDelete + newInsert));
+            javaFile.setWeightedAge(javaFile.getAge() * javaFile.getLocTouched());
             javaFile.addAuthors(author);
         }
     }
