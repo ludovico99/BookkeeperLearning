@@ -84,10 +84,10 @@ public class WekaLearning {
         CsvOutput.getWriter().close();
 
         val.showChart(res, MetricsEnum.ACCURACY);
-//        val.showChart(res, MetricsEnum.RECALL);
-//        val.showChart(res, MetricsEnum.PRECISION);
-//        val.showChart(res, MetricsEnum.ROCAUC);
-//        val.showChart(res, MetricsEnum.KAPPA);
+        val.showChart(res, MetricsEnum.RECALL);
+        val.showChart(res, MetricsEnum.PRECISION);
+        val.showChart(res, MetricsEnum.ROCAUC);
+        val.showChart(res, MetricsEnum.KAPPA);
 
 
 
