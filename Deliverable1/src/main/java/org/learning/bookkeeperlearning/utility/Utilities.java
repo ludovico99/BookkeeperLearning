@@ -1,4 +1,4 @@
-package org.learning.bookkeeperlearning.utilityclasses;
+package org.learning.bookkeeperlearning.utility;
 
 import org.eclipse.jgit.diff.DiffEntry;
 import org.json.JSONArray;

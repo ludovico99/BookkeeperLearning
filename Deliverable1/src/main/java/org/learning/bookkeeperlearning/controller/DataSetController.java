@@ -3,7 +3,7 @@ package org.learning.bookkeeperlearning.controller;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.Repository;
 import org.learning.bookkeeperlearning.entity.*;
-import org.learning.bookkeeperlearning.utilityclasses.Utilities;
+import org.learning.bookkeeperlearning.utility.Utilities;
 
 import java.io.IOException;
 import java.util.ArrayList;

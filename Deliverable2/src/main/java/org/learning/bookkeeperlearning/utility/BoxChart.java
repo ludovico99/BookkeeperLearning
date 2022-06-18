@@ -60,9 +60,10 @@ public  class BoxChart extends ApplicationFrame {
                 }
 
                 BoxAndWhiskerItem item = BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(values);
-                String columnKey = "Walk Forward " + learningModelEntity.getBalancing();
+                String columnKey = "Walk Forward";
                 if (learningModelEntity.isFeatureSelection()) columnKey += " " + learningModelEntity.getTypeFeatureSelection();
-                if(learningModelEntity.isCostSensitive()) columnKey +=  " with cost sensitive";
+                columnKey +=  " " + learningModelEntity.getBalancing();
+                if(learningModelEntity.isCostSensitive()) columnKey +=  "with cost sensitivity";
                 dataset.add(item, classifier,columnKey);
         }
             return dataset;

@@ -13,7 +13,7 @@ import org.learning.bookkeeperlearning.entity.CommitEntity;
 import org.learning.bookkeeperlearning.entity.JavaFileEntity;
 import org.learning.bookkeeperlearning.entity.JiraTicketsEntity;
 import org.learning.bookkeeperlearning.entity.ReleaseEntity;
-import org.learning.bookkeeperlearning.utilityclasses.Utilities;
+import org.learning.bookkeeperlearning.utility.Utilities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

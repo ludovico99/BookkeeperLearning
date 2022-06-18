@@ -1,4 +1,4 @@
-package org.learning.bookkeeperlearning.utilityclasses;
+package org.learning.bookkeeperlearning.utility;
 
 import org.json.JSONArray;
 import org.json.JSONException;

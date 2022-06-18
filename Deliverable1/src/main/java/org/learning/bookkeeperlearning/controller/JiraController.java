@@ -5,8 +5,8 @@ import org.json.JSONObject;
 import org.learning.bookkeeperlearning.entity.JiraTicketsEntity;
 import org.learning.bookkeeperlearning.entity.ReleaseEntity;
 import org.learning.bookkeeperlearning.exceptions.JsonParsingException;
-import org.learning.bookkeeperlearning.utilityclasses.JsonParsing;
-import org.learning.bookkeeperlearning.utilityclasses.Utilities;
+import org.learning.bookkeeperlearning.utility.JsonParsing;
+import org.learning.bookkeeperlearning.utility.Utilities;
 
 import java.io.IOException;
 import java.util.ArrayList;

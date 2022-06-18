@@ -1,4 +1,4 @@
-package org.learning.bookkeeperlearning.utilityclasses;
+package org.learning.bookkeeperlearning.utility;
 ;
 import org.learning.bookkeeperlearning.entity.DataSetEntity;
 import org.learning.bookkeeperlearning.entity.JavaFileEntity;

@@ -3,7 +3,7 @@ package org.learning.bookkeeperlearning.controller;
 import org.learning.bookkeeperlearning.entity.DataSetEntity;
 import org.learning.bookkeeperlearning.entity.JiraTicketsEntity;
 import org.learning.bookkeeperlearning.entity.ReleaseEntity;
-import org.learning.bookkeeperlearning.utilityclasses.ArffFiles;
+import org.learning.bookkeeperlearning.utility.ArffFiles;
 
 import java.io.IOException;
 

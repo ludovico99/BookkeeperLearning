@@ -23,14 +23,16 @@ public class WekaLearning {
          *
          * 1.1: Applico walk forward standard, senza "decorazioni" aggiuntive.
          * 1.2: Applico walk forward con best first.
-         * 1.4: Applico walk forward con forward search + Wrapper.
+         * 1.3: Applico walk forward con forward search + Wrapper.
+         * 1.4: Applico walk forward con backward search + Wrapper.
          * 1.5: Applico walk forward con SMOTE SAMPLING.
          * 1.6: Applico walk forward con SMOTE SAMPLING e feature selection (BEST_FIRST).
          * 1.7: Applico walk forward con UNDER SAMPLING e feature selection (BEST_FIRST).
          * 1.8: Applico walk forward con OVER SAMPLING e feature selection (BEST_FIRST).
-         * 1.9: Applico walk forward con miss classifications cost.
+         * 1.9: Applico walk forward con con cost sentivity.
          * 1.10: Applico walk forward con feature selection (BEST FIRST) e miss classifications cost.
-         * 1.11: Realizzo un box chart categorico basato sulla metrica di accuratezza.
+         * 1.11: Realizzo un box chart categorico basato sulla varie metriche utilizzate (E' possibile anche
+         * salvarle in formato jpg).
          *
          *
          * */
@@ -45,7 +47,7 @@ public class WekaLearning {
 
         val = new FeatureSelectionDecorator(new WalkForwardStd(source1,source2), FeatureSelectionEnum.BEST_FIRST);
 
-        res.addAll(val.validation());
+         res.addAll(val.validation());
 
         val = new FeatureSelectionDecorator(new WalkForwardStd(source1,source2), FeatureSelectionEnum.WRAPPER_FORWARDS_SEARCH);
 
@@ -82,10 +84,10 @@ public class WekaLearning {
         CsvOutput.getWriter().close();
 
         val.showChart(res, MetricsEnum.ACCURACY);
-        val.showChart(res, MetricsEnum.RECALL);
-        val.showChart(res, MetricsEnum.PRECISION);
-        val.showChart(res, MetricsEnum.ROCAUC);
-        val.showChart(res, MetricsEnum.KAPPA);
+//        val.showChart(res, MetricsEnum.RECALL);
+//        val.showChart(res, MetricsEnum.PRECISION);
+//        val.showChart(res, MetricsEnum.ROCAUC);
+//        val.showChart(res, MetricsEnum.KAPPA);
 
 
 
